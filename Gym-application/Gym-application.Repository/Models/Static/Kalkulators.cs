@@ -56,21 +56,21 @@ namespace Gym_application.Repository.Models.Static
         {
             return BMR * life_const;
         }
-        private double Calculate_somatotyp()
-        {
-            // Building Ekto +20% ,Mezo +15%, Endo +10%
-            // Reduc Ekto -10%, Mezo +15%, Endo -20%
-            double calculate = Calculate_type_life();
-            if (aim == Aim.Building)
-            {
-                calculate = (somatotyp == Somatotyp.Ektomorfik) ? calculate * 1.2 : (somatotyp == Somatotyp.Mezomorfik) ? calculate * 1.15 : calculate * 1.1;
-            }
-            else
-            {
-                calculate = (somatotyp == Somatotyp.Ektomorfik) ? calculate * 0.9 : (somatotyp == Somatotyp.Mezomorfik) ? calculate * 0.85 : calculate * 0.8;
-            }
-            return calculate;
-        }
+        //private double Calculate_somatotyp()
+        //{
+        //    // Building Ekto +20% ,Mezo +15%, Endo +10%
+        //    // Reduc Ekto -10%, Mezo +15%, Endo -20%
+        //    double calculate = Calculate_type_life();
+        //    if (aim == Aim.Building)
+        //    {
+        //        calculate = (somatotyp == Somatotyp.Ektomorfik) ? calculate * 1.2 : (somatotyp == Somatotyp.Mezomorfik) ? calculate * 1.15 : calculate * 1.1;
+        //    }
+        //    else
+        //    {
+        //        calculate = (somatotyp == Somatotyp.Ektomorfik) ? calculate * 0.9 : (somatotyp == Somatotyp.Mezomorfik) ? calculate * 0.85 : calculate * 0.8;
+        //    }
+        //    return calculate;
+        //}
 
     }
     public enum Somatotyp

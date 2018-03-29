@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Gym_application.Repository.Models.Repo;
+using Gym_application.Repository.Models.DataBase;
 using Gym_application.GYMMY.Models.ManageViewModels;
 using Gym_application.GYMMY.Services;
 

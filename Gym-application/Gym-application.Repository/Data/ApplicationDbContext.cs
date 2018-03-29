@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Gym_application.Repository.Models.Repo;
+using Gym_application.Repository.Models.DataBase;
 
 namespace Gym_application.Repository.Data
 {
@@ -29,14 +29,14 @@ namespace Gym_application.Repository.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             base.OnModelCreating(builder);
         }
-        public DbSet<Diet> Diet { get; set; }
-        public DbSet<Diet_Meal> Diet_Meal { get; set; }
-        public DbSet<Meal> Meal { get; set; }
-        public DbSet<Meal__Nutritional_Values> Meal__Nutritional_Values { get; set; }
-        public DbSet<Nutritional_Values> Nutritional_Values { get; set; }
-        public DbSet<Sizes> Sizes { get; set; }
+        public DbSet<Diet> Diets { get; set; }
+        public DbSet<Diet_Meal> Diet_Meals { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<Meal__Nutritional_Value> Meal__Nutritional_Values { get; set; }
+        public DbSet<Nutritional_Value> Nutritional_Values { get; set; }
+        public DbSet<Size> Sizes { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<User_Detail> User_Detail { get; set; }
+        public DbSet<User_Detail> User_Details { get; set; }
 
     }
 }

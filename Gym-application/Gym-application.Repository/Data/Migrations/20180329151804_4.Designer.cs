@@ -12,9 +12,10 @@ using System;
 namespace Gym_application.GYMMY.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180329151804_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +39,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Diets");
+                    b.ToTable("Diet");
                 });
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Diet_Meal", b =>
@@ -60,7 +61,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("Diet_Meals");
+                    b.ToTable("Diet_Meal");
                 });
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal", b =>
@@ -72,10 +73,10 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Meals");
+                    b.ToTable("Meal");
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Value", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Values", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -95,7 +96,7 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.ToTable("Meal__Nutritional_Values");
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Value", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Values", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -115,7 +116,7 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.ToTable("Nutritional_Values");
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Sizes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -221,7 +222,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Details");
+                    b.ToTable("User_Detail");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -352,23 +353,23 @@ namespace Gym_application.GYMMY.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Value", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Values", b =>
                 {
                     b.HasOne("Gym_application.Repository.Models.DataBase.Meal", "Meal")
                         .WithMany("Meal__Nutritional_Values")
                         .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Gym_application.Repository.Models.DataBase.Nutritional_Value", "Nutritional_Values")
+                    b.HasOne("Gym_application.Repository.Models.DataBase.Nutritional_Values", "Nutritional_Values")
                         .WithMany("Meal__Nutritional_Values")
                         .HasForeignKey("Nutritional_ValuesId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Sizes", b =>
                 {
                     b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
-                        .WithMany("Size")
+                        .WithMany("Sizes")
                         .HasForeignKey("UserId1");
                 });
 

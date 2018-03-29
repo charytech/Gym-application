@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym-application.GYMMY", "Gym-application.GYMMY\Gym-application.GYMMY.csproj", "{C21293B6-4D93-474B-A521-1B9BB6A5DEF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym_application.GYMMY", "Gym-application.GYMMY\Gym_application.GYMMY.csproj", "{C21293B6-4D93-474B-A521-1B9BB6A5DEF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym-application.Tests", "Gym-application.Tests\Gym-application.Tests.csproj", "{0CC5EBAD-1602-4A41-9D35-88FAE44C4A47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym_application.Tests", "Gym-application.Tests\Gym_application.Tests.csproj", "{0CC5EBAD-1602-4A41-9D35-88FAE44C4A47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym-application.Repository", "Gym-application.Repository\Gym-application.Repository.csproj", "{08451947-0A4C-4FA4-A7AA-2CC053388988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym_application.Repository", "Gym-application.Repository\Gym_application.Repository.csproj", "{08451947-0A4C-4FA4-A7AA-2CC053388988}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

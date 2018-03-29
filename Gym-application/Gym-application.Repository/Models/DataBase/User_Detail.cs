@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Gym_application.Repository.Models.Repo
+namespace Gym_application.Repository.Models.DataBase
 {
     public class User_Detail
     {
@@ -18,8 +18,8 @@ namespace Gym_application.Repository.Models.Repo
         private Somatotyp somatotyp { get; set; }
         public byte Height { get; set; }
         public bool Sex { get; set; } // Woman =True         
-        public Int16 Calories_after_BMR_multiply_activity { get; set; }
-        public Int16 Calories_for_calculators { get; set; }
+        public short Calories_after_BMR_multiply_activity { get; set; }
+        public short Calories_for_calculators { get; set; }
         [NotMapped]
         public int Totaly_Calories => (Aim == Kind_of_Sizes.Reduction) ? Calories_after_BMR_multiply_activity - Calories_for_calculators : (Aim == Kind_of_Sizes.Mass) ? Calories_after_BMR_multiply_activity + Calories_for_calculators : Calories_after_BMR_multiply_activity; 
 

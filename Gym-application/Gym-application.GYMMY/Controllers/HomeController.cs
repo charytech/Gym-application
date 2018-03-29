@@ -5,11 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Gym_application.GYMMY.Models;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Gym_application.GYMMY.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IStringLocalizer<HomeController> _localizer;
+
+        public HomeController(IStringLocalizer<HomeController> localizer)
+        {
+            _localizer = localizer;
+        }
         public IActionResult Index()
         {
             return View();
@@ -17,14 +26,14 @@ namespace Gym_application.GYMMY.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = _localizer["String1"];
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = _localizer["String1"];
 
             return View();
         }
@@ -32,6 +41,17 @@ namespace Gym_application.GYMMY.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

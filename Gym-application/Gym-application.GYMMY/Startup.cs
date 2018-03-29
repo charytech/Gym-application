@@ -12,6 +12,12 @@ using Gym_application.GYMMY.Data;
 using Gym_application.GYMMY.Models;
 using Gym_application.GYMMY.Services;
 using Gym_application.Repository.Data;
+using Gym_application.Repository.Models.DataBase;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using Gym_application.Repository.Models.IRepo;
 using Gym_application.Repository.Models.Repo;
 
 namespace Gym_application.GYMMY
@@ -35,10 +41,30 @@ namespace Gym_application.GYMMY
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+
+            
+            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix, opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(opts => {
+            var supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("pl-PL"),
+            };
+            opts.DefaultRequestCulture = new RequestCulture("en-US");
+            // Formatting numbers, dates, etc.
+            opts.SupportedCultures = supportedCultures;
+            // UI strings that we have localized.
+            opts.SupportedUICultures = supportedCultures;
+        });
+            
+            
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddMvc();
+            services.AddTransient<IUserRepo, UserRepo>();
+            //services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +80,13 @@ namespace Gym_application.GYMMY
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
