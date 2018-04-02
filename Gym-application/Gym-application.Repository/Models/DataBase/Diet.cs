@@ -16,6 +16,6 @@ namespace Gym_application.Repository.Models.DataBase
         public string OwnerId { get; set; }
         public DateTime Created_Date { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Diet_Meal> Diet_Meal { get; set; }
+        public virtual ICollection<Diet_Meal> Diet_Meal { get; private set; }
     }
 }

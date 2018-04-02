@@ -17,6 +17,10 @@ namespace Gym_application.Repository.Models.DataBase
         public short Protein { get; set; }
         public short Fat { get; set; }
         public short Carbohydrates { get; set; }
+        public bool Dish { get; set; }
+        public string Accepted { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
         public ICollection<Meal__Nutritional_Value> Meal__Nutritional_Values { get; private set; }
 
     }

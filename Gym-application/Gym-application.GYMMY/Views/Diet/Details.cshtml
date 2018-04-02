@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Gym_application.Repository.Models.ViewModels.DietViewModels.ViewDietModel>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details @ViewBag.DietId</h2>
+
+<div>
+    <h4>Diet</h4>
+    <hr />
+    
+        @foreach (var a in Model)
+        {
+            if (a.Which_day != 0)
+            {
+                <dl class="dl-horizontal">
+                    <dt>
+                        Day: @Html.DisplayFor(mod => a.Which_day)
+                    </dt>
+                    @foreach (var c in a.ListMeals)
+                    {
+                        <dd>
+                            @Html.DisplayFor(item => c.Name)
+                        </dd>
+                        <dd>
+                            @Html.DisplayFor(item => c.Calories)
+                        </dd>
+                    }
+                </dl>
+            }
+
+        } 
+    @foreach (var meal in Model)
+    {
+        @foreach (var c in meal.ListMeals)
+        { 
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayFor(item => c.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(item => c.Calories)
+            </dd>
+        </dl>
+        }
+
+        }
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>

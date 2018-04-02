@@ -50,7 +50,7 @@ namespace Gym_application.Repository.Models.Static
             }
             return BMR;
 
-
+            
         }
         private double Calculate_type_life(double BMR, double life_const)
         {

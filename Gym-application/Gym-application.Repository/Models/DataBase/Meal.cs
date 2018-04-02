@@ -14,6 +14,14 @@ namespace Gym_application.Repository.Models.DataBase
         }
         public int Id { get; set; }
         public string Name { get; set; }
+
+        #region Calculate from Nurtitional Values
+        public short Calories { get; set; } = 0;
+        public short Protein { get; set; } = 0;
+        public short Fat { get; set; } = 0;
+        public short Carbohydrates { get; set; } = 0;
+        #endregion
+
         public ICollection<Meal__Nutritional_Value> Meal__Nutritional_Values { get; private set; }
         public ICollection<Diet_Meal> Diet_Meal { get; private set; }
 

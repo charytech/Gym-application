@@ -1,0 +1,64 @@
+﻿@model Gym_application.Repository.Models.DataBase.User_Detail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>User_Detail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Aim" class="control-label"></label>
+                <select asp-for="Aim" class="form-control"></select>
+                <span asp-validation-for="Aim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Somatotyp" class="control-label"></label>
+                <select asp-for="Somatotyp" class="form-control"></select>
+                <span asp-validation-for="Somatotyp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Height" class="control-label"></label>
+                <input asp-for="Height" class="form-control" />
+                <span asp-validation-for="Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Sex" /> @Html.DisplayNameFor(model => model.Sex)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Activity" class="control-label"></label>
+                <input asp-for="Activity" class="form-control" />
+                <span asp-validation-for="Activity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calculator_Type" class="control-label"></label>
+                <select asp-for="Calculator_Type" class="form-control"></select>
+                <span asp-validation-for="Calculator_Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Authomatic_calculate" /> @Html.DisplayNameFor(model => model.Authomatic_calculate)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

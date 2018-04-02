@@ -12,8 +12,8 @@ using System;
 namespace Gym_application.GYMMY.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180329155319_5")]
-    partial class _5
+    [Migration("20180402103506_6")]
+    partial class _6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,8 +53,6 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<short>("Number_of_Meal_At_The_Week");
 
-                    b.Property<short>("Which_meal_at_the_day");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DietId");
@@ -69,7 +67,15 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<short>("Calories");
+
+                    b.Property<short>("Carbohydrates");
+
+                    b.Property<short>("Fat");
+
                     b.Property<string>("Name");
+
+                    b.Property<short>("Protein");
 
                     b.HasKey("Id");
 
@@ -101,9 +107,13 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Accepted");
+
                     b.Property<short>("Calorie");
 
                     b.Property<short>("Carbohydrates");
+
+                    b.Property<bool>("Dish");
 
                     b.Property<short>("Fat");
 
@@ -111,7 +121,11 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<short>("Protein");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Nutritional_Values");
                 });
@@ -123,29 +137,29 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<byte>("Biceps");
 
-                    b.Property<byte>("Biodra");
+                    b.Property<byte>("Chest");
+
+                    b.Property<DateTime>("Create_Date");
+
+                    b.Property<byte>("Fat");
+
+                    b.Property<byte>("Forearm");
+
+                    b.Property<byte>("Hips");
 
                     b.Property<int>("Kind_Of_Sizes");
 
-                    b.Property<byte>("Klatka");
+                    b.Property<byte>("Thigh");
 
-                    b.Property<byte>("Pas");
+                    b.Property<string>("UserId");
 
-                    b.Property<byte>("Przedramie");
-
-                    b.Property<byte>("Tkanka_tluszczowa");
-
-                    b.Property<byte>("Udo");
-
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<byte>("Waist");
 
                     b.Property<short>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sizes");
                 });
@@ -165,6 +179,8 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -182,6 +198,8 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("SurName");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -203,20 +221,22 @@ namespace Gym_application.GYMMY.Data.Migrations
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Aim");
 
-                    b.Property<short>("Calories_after_BMR_multiply_activity");
+                    b.Property<short?>("Calories_after_BMR_multiply_activity");
 
-                    b.Property<short>("Calories_for_calculators");
+                    b.Property<short?>("Calories_for_calculators");
 
                     b.Property<byte>("Height");
 
                     b.Property<bool>("Sex");
 
                     b.Property<string>("UserId");
+
+                    b.Property<int>("somatotyp");
 
                     b.HasKey("Id");
 
@@ -366,11 +386,18 @@ namespace Gym_application.GYMMY.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Value", b =>
+                {
+                    b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
+                        .WithMany("Nutritional_Value")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>
                 {
                     b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
                         .WithMany("Size")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>

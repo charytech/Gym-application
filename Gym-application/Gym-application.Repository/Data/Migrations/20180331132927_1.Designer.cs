@@ -12,9 +12,10 @@ using System;
 namespace Gym_application.GYMMY.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180331132927_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +53,8 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<short>("Number_of_Meal_At_The_Week");
 
+                    b.Property<short>("Which_meal_at_the_day");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DietId");
@@ -66,15 +69,7 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<short>("Calories");
-
-                    b.Property<short>("Carbohydrates");
-
-                    b.Property<short>("Fat");
-
                     b.Property<string>("Name");
-
-                    b.Property<short>("Protein");
 
                     b.HasKey("Id");
 
@@ -106,13 +101,9 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Accepted");
-
                     b.Property<short>("Calorie");
 
                     b.Property<short>("Carbohydrates");
-
-                    b.Property<bool>("Dish");
 
                     b.Property<short>("Fat");
 
@@ -120,11 +111,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<short>("Protein");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Nutritional_Values");
                 });
@@ -198,6 +185,8 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<bool>("Sex");
+
                     b.Property<string>("SurName");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -223,23 +212,13 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<short>("Activity");
-
                     b.Property<int>("Aim");
-
-                    b.Property<bool>("Authomatic_calculate");
-
-                    b.Property<int>("Calculator_Type");
 
                     b.Property<short?>("Calories_after_BMR_multiply_activity");
 
                     b.Property<short?>("Calories_for_calculators");
 
                     b.Property<byte>("Height");
-
-                    b.Property<bool>("Sex");
-
-                    b.Property<int>("Somatotyp");
 
                     b.Property<string>("UserId");
 
@@ -389,13 +368,6 @@ namespace Gym_application.GYMMY.Data.Migrations
                         .WithMany("Meal__Nutritional_Values")
                         .HasForeignKey("Nutritional_ValuesId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Value", b =>
-                {
-                    b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
-                        .WithMany("Nutritional_Value")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>

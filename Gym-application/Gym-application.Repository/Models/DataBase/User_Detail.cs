@@ -13,15 +13,18 @@ namespace Gym_application.Repository.Models.DataBase
 
         }
         [Key, ForeignKey("User")]
-        public int Id { get; set; }
-        public Kind_of_Sizes Aim { get; set;}
-        private Somatotyp somatotyp { get; set; }
+        public string Id { get; set; }
+        public Kind_of_Aim Aim { get; set;}
+        public Somatotyp Somatotyp { get; set; }
         public byte Height { get; set; }
-        public bool Sex { get; set; } // Woman =True         
-        public short Calories_after_BMR_multiply_activity { get; set; }
-        public short Calories_for_calculators { get; set; }
+        public bool Sex { get; set; } // Woman =True   
+        public short Activity { get; set; }
+        public Calculator_type Calculator_Type { get; set; }
+        public bool Authomatic_calculate { get; set; }
+        public short? Calories_after_BMR_multiply_activity { get; set; }
+        public short? Calories_for_calculators { get; set; }
         [NotMapped]
-        public int Totaly_Calories => (Aim == Kind_of_Sizes.Reduction) ? Calories_after_BMR_multiply_activity - Calories_for_calculators : (Aim == Kind_of_Sizes.Mass) ? Calories_after_BMR_multiply_activity + Calories_for_calculators : Calories_after_BMR_multiply_activity; 
+        public int Totaly_Calories => (Aim == Kind_of_Aim.Reduction) ? (int)Calories_after_BMR_multiply_activity - (int)Calories_for_calculators : (Aim == Kind_of_Aim.Mass) ? (int)Calories_after_BMR_multiply_activity + (int)Calories_for_calculators : (int)Calories_after_BMR_multiply_activity; 
 
         
         //#region Aim 
@@ -46,12 +49,16 @@ namespace Gym_application.Repository.Models.DataBase
         //#endregion
 
     }
-    public enum Kind_of_Sizes
+    public enum Kind_of_Aim
     {
         Reduction, Mass, Keep
     }
     public enum Somatotyp
     {
         Ektomorfik, Mezomorfik, Endomorfik
+    }
+    public enum Calculator_type
+    {
+        HB,MSJ,KM
     }
 }

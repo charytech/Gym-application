@@ -12,9 +12,10 @@ using System;
 namespace Gym_application.GYMMY.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180402083433_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,6 +199,8 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<bool>("Sex");
+
                     b.Property<string>("SurName");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -223,23 +226,13 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<short>("Activity");
-
                     b.Property<int>("Aim");
-
-                    b.Property<bool>("Authomatic_calculate");
-
-                    b.Property<int>("Calculator_Type");
 
                     b.Property<short?>("Calories_after_BMR_multiply_activity");
 
                     b.Property<short?>("Calories_for_calculators");
 
                     b.Property<byte>("Height");
-
-                    b.Property<bool>("Sex");
-
-                    b.Property<int>("Somatotyp");
 
                     b.Property<string>("UserId");
 

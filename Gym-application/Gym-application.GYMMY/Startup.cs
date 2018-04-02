@@ -64,6 +64,13 @@ namespace Gym_application.GYMMY
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<ISizesRepo, SizesRepo>();
+            services.AddTransient<IUser_DetailRepo, User_DetailRepo>();
+            services.AddTransient<IApplicationDbContextRepo, ApplicationDbContext>();
+            services.AddTransient<IDietRepo, DietRepo>();
+
+
+
             //services.AddMvc();
         }
 

@@ -12,8 +12,8 @@ using System;
 namespace Gym_application.GYMMY.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180328183024_2")]
-    partial class _2
+    [Migration("20180402120413_7")]
+    partial class _7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,36 +22,144 @@ namespace Gym_application.GYMMY.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Sizes", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Diet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created_Date");
+
+                    b.Property<string>("Nazwa");
+
+                    b.Property<string>("OwnerId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Diets");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Diet_Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DietId");
+
+                    b.Property<int>("MealId");
+
+                    b.Property<short>("Number_of_Meal_At_The_Week");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DietId");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("Diet_Meals");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<short>("Calories");
+
+                    b.Property<short>("Carbohydrates");
+
+                    b.Property<short>("Fat");
+
+                    b.Property<string>("Name");
+
+                    b.Property<short>("Protein");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Value", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MealId");
+
+                    b.Property<int>("Nutritional_ValuesId");
+
+                    b.Property<short>("Quantity_grams");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MealId");
+
+                    b.HasIndex("Nutritional_ValuesId");
+
+                    b.ToTable("Meal__Nutritional_Values");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Value", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Accepted");
+
+                    b.Property<short>("Calorie");
+
+                    b.Property<short>("Carbohydrates");
+
+                    b.Property<bool>("Dish");
+
+                    b.Property<short>("Fat");
+
+                    b.Property<string>("Name");
+
+                    b.Property<short>("Protein");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Nutritional_Values");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<byte>("Biceps");
 
-                    b.Property<byte>("Biodra");
+                    b.Property<byte>("Chest");
+
+                    b.Property<DateTime>("Create_Date");
+
+                    b.Property<byte>("Fat");
+
+                    b.Property<byte>("Forearm");
+
+                    b.Property<byte>("Hips");
 
                     b.Property<int>("Kind_Of_Sizes");
 
-                    b.Property<byte>("Klatka");
+                    b.Property<byte>("Thigh");
 
-                    b.Property<byte>("Pas");
+                    b.Property<string>("UserId");
 
-                    b.Property<byte>("Przedramie");
-
-                    b.Property<byte>("Tkanka_tluszczowa");
-
-                    b.Property<byte>("Udo");
-
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<byte>("Waist");
 
                     b.Property<short>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sizes");
                 });
@@ -71,6 +179,8 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -88,6 +198,8 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("SurName");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -109,10 +221,16 @@ namespace Gym_application.GYMMY.Data.Migrations
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Aim");
+
+                    b.Property<bool>("Authomatic_calculate");
+
+                    b.Property<short?>("Calories_after_BMR_multiply_activity");
+
+                    b.Property<short?>("Calories_for_calculators");
 
                     b.Property<byte>("Height");
 
@@ -120,11 +238,17 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<string>("UserId");
 
+                    b.Property<short>("activity");
+
+                    b.Property<int>("calculator_Type");
+
+                    b.Property<int>("somatotyp");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Detail");
+                    b.ToTable("User_Details");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -235,11 +359,51 @@ namespace Gym_application.GYMMY.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Sizes", b =>
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Diet", b =>
                 {
                     b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
-                        .WithMany("Sizes")
-                        .HasForeignKey("UserId1");
+                        .WithMany("Diet")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Diet_Meal", b =>
+                {
+                    b.HasOne("Gym_application.Repository.Models.DataBase.Diet", "Diet")
+                        .WithMany("Diet_Meal")
+                        .HasForeignKey("DietId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Gym_application.Repository.Models.DataBase.Meal", "Meal")
+                        .WithMany("Diet_Meal")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Meal__Nutritional_Value", b =>
+                {
+                    b.HasOne("Gym_application.Repository.Models.DataBase.Meal", "Meal")
+                        .WithMany("Meal__Nutritional_Values")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Gym_application.Repository.Models.DataBase.Nutritional_Value", "Nutritional_Values")
+                        .WithMany("Meal__Nutritional_Values")
+                        .HasForeignKey("Nutritional_ValuesId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Nutritional_Value", b =>
+                {
+                    b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
+                        .WithMany("Nutritional_Value")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Gym_application.Repository.Models.DataBase.Size", b =>
+                {
+                    b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
+                        .WithMany("Size")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>

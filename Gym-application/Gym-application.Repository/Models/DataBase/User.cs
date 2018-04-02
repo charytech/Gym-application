@@ -12,12 +12,17 @@ namespace Gym_application.Repository.Models.DataBase
     {
         public User()
         {
+
             this.User_Detail = new HashSet<User_Detail>();
             this.Size = new HashSet<Size>();
         }
-        public virtual ICollection<Size> Size { get; set; }
-        public virtual ICollection<User_Detail> User_Detail { get; set; }
-        public virtual ICollection<Diet> Diet { get; set; }
-
+        public string FirstName { get; set; }
+        public string SurName { get; set; }
+        
+        public virtual ICollection<Size> Size { get; private set; }
+        public virtual ICollection<User_Detail> User_Detail { get;private set; }
+        public virtual ICollection<Diet> Diet { get;private set; }
+        public virtual ICollection<Nutritional_Value> Nutritional_Value { get; private set; }
+        
     }
 }

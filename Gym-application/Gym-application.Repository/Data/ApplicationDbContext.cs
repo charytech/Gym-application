@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Gym_application.Repository.Models.DataBase;
+using Gym_application.Repository.Models.IRepo;
+using System.Threading;
 
 namespace Gym_application.Repository.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbContextRepo
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -29,6 +31,7 @@ namespace Gym_application.Repository.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             base.OnModelCreating(builder);
         }
+       
         public DbSet<Diet> Diets { get; set; }
         public DbSet<Diet_Meal> Diet_Meals { get; set; }
         public DbSet<Meal> Meals { get; set; }
@@ -38,5 +41,6 @@ namespace Gym_application.Repository.Data
         public DbSet<User> User { get; set; }
         public DbSet<User_Detail> User_Details { get; set; }
 
+        DbLoggerCategory.Database IApplicationDbContextRepo.Database => throw new NotImplementedException();
     }
 }
