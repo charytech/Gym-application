@@ -22,7 +22,7 @@ namespace Gym_application.GYMMY.Controllers
         public async Task<IActionResult> Index() //like edit action for calculators
         {
            
-            var UserDetail = await _context_UserDetail.GetUserDetail(User.Identity.Name);
+            var UserDetail = await _context_UserDetail.GetUserDetail(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (UserDetail == null)
             {
                return RedirectToAction("Create");

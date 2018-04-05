@@ -23,6 +23,7 @@ namespace Gym_application.Repository.Models.DataBase
         public bool Authomatic_calculate { get; set; }
         public short? Calories_after_BMR_multiply_activity { get; set; }
         public short? Calories_for_calculators { get; set; }
+        public User User { get; set; }
         [NotMapped]
         public int Totaly_Calories => (Aim == Kind_of_Aim.Reduction) ? (int)Calories_after_BMR_multiply_activity - (int)Calories_for_calculators : (Aim == Kind_of_Aim.Mass) ? (int)Calories_after_BMR_multiply_activity + (int)Calories_for_calculators : (int)Calories_after_BMR_multiply_activity; 
 

@@ -1,0 +1,129 @@
+﻿@model Gym_application.Repository.Models.DataBase.User_Detail
+@using Gym_application.Repository.Models.DataBase
+
+<script src="~/js/calculators.js"></script>
+@*<script>
+    angular.module('myApp', [])
+        .controller('calculatorAng', function ($scope) {
+            $scope.Aim = "Reduction";
+            $scope.Height = 187;
+            $scope.Weight = 110;
+        });
+</script>*@
+
+@{
+    var Aim_init = (int)Model.Aim;
+    var Somatotyp_init = (int)Model.Somatotyp;
+    var Calculator_Type_init = (int)Model.Calculator_Type;
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<h4>User_Detail</h4>
+
+<hr />
+<div class="row" ng-app="myApp" ng-controller="calculatorAng"  >
+    
+    <div class="col-md-6">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Aim" class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8">
+                    <select asp-for="Aim" asp-items="Html.GetEnumSelectList<Kind_of_Aim>()"ng-init="Aim='@Aim_init'" ng-model="Aim" class="form-control"></select>
+                    <span asp-validation-for="Aim" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Somatotyp" class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8">
+                    <select asp-for="Somatotyp" asp-items="Html.GetEnumSelectList<Somatotyp>()" ng-init="Somatotyp='@Somatotyp_init'" ng-model="Somatotyp" class="form-control"></select>
+                    <span asp-validation-for="Somatotyp" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Height" class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Height" class="form-control" ng-change="myFunc" ng-model="Height" />
+                    <span asp-validation-for="Height" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">  Weight</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" ng-model="Weight" />
+                    @*<span asp-validation-for="Weight" class="text-danger"></span>*@
+                </div>
+            </div>
+
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
+                    <div class="col-sm-8" ng-init="Sex='@Model.Sex'">
+                        <div class="form-check">
+                            <input asp-for="Sex" ng-model="Sex" type="radio" name="Sex" id="Woman" value="True">
+                            <label class="form-check-label" for="Woman">
+                                Woman
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Sex" ng-model="Sex" type="radio" name="Sex" id="Men" value="False">
+                            <label class="form-check-label" for="Men">
+                               Men
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+           
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label"> Activity {{Activity}} </label>
+                <div class="col-sm-8">
+                    <input asp-for="Activity" class="form-control" type="range" min="100" max="200" step="10" val="110" ng-model="Activity">
+                    <span asp-validation-for="Activity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row" ng-init="Calculator_Type='@Calculator_Type_init'">
+                <label asp-for="Calculator_Type" class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8">
+                    <select asp-for="Calculator_Type" asp-items="Html.GetEnumSelectList<Calculator_type>()" ng-model="Calculator_Type" class="form-control"></select>
+                    <span asp-validation-for="Calculator_Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Authomatic_calculate" /> @Html.DisplayNameFor(model => model.Authomatic_calculate)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calories_after_BMR_multiply_activity" class="control-label"></label>
+                <input asp-for="Calories_after_BMR_multiply_activity" class="form-control" />
+                <span asp-validation-for="Calories_after_BMR_multiply_activity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Protein
+                <input type="range" min="1" max="97" step="1" val="20"ng-model="Protein">
+                Fat
+                <input type="range" min="1" max="97" step="1" val="20" ng-model="Fat">
+                Carbo
+                <input type="range" min="1" max="97" step="1" val="20" ng-model="Carbo">
+            </div>
+            <div class="form-group">
+                <label asp-for="Calories_for_calculators" class="control-label"></label>
+                <input asp-for="Calories_for_calculators" class="form-control" />
+                <span asp-validation-for="Calories_for_calculators" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -220,8 +220,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<short>("Activity");
 
@@ -241,11 +240,7 @@ namespace Gym_application.GYMMY.Data.Migrations
 
                     b.Property<int>("Somatotyp");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("User_Details");
                 });
@@ -407,9 +402,10 @@ namespace Gym_application.GYMMY.Data.Migrations
 
             modelBuilder.Entity("Gym_application.Repository.Models.DataBase.User_Detail", b =>
                 {
-                    b.HasOne("Gym_application.Repository.Models.DataBase.User")
-                        .WithMany("User_Detail")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Gym_application.Repository.Models.DataBase.User", "User")
+                        .WithOne("User_Detail")
+                        .HasForeignKey("Gym_application.Repository.Models.DataBase.User_Detail", "Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
