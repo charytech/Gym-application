@@ -16,12 +16,15 @@ namespace Gym_application.Repository.Models.DataBase
         public string Id { get; set; }
         public Kind_of_Aim Aim { get; set;}
         public Somatotyp Somatotyp { get; set; }
-        public byte Height { get; set; }
+        public short Age { get; set; }
         public bool Sex { get; set; } // Woman =True   
         public short Activity { get; set; }
+        [Display(Name ="Type calculator")]
         public Calculator_type Calculator_Type { get; set; }
         public bool Authomatic_calculate { get; set; }
+        [Display(Name ="Saved calories")]
         public short? Calories_after_BMR_multiply_activity { get; set; }
+        [Display(Name = "Calories for operations")]
         public short? Calories_for_calculators { get; set; }
         public User User { get; set; }
         [NotMapped]
@@ -60,6 +63,6 @@ namespace Gym_application.Repository.Models.DataBase
     }
     public enum Calculator_type
     {
-        HB,MSJ,KM
+        Easiest,HB,MSJ,KM
     }
 }

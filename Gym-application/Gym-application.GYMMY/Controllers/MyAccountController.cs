@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Gym_application.Repository.Models.DataBase;
 using System;
+using Gym_application.Repository.Models.ViewModels;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -21,15 +22,16 @@ namespace Gym_application.GYMMY.Controllers
 
         public async Task<IActionResult> Index() //like edit action for calculators
         {
-           
+            
             var UserDetail = await _context_UserDetail.GetUserDetail(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (UserDetail == null)
             {
                return RedirectToAction("Create");
-            }
+            }            
             else
             {
-                return View(UserDetail);
+                MyAccountViewModel viewMo = new MyAccountViewModel() { UserDetail = UserDetail, Sizes = new Size()};
+                return View(viewMo);
             }
         }
         public IActionResult Create()
@@ -44,7 +46,7 @@ namespace Gym_application.GYMMY.Controllers
             {
                 try
                 {
-                    user_Detail.Id = User.Identity.Name;
+                    user_Detail.Id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context_UserDetail.Add_User_Detail(user_Detail);
                     await _context_UserDetail.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -108,7 +110,7 @@ namespace Gym_application.GYMMY.Controllers
 
         public IActionResult Sizes()
         {
-            //string userId = User.Identity.Name;
+            //string userId = User.Identity.Id;
             string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View(_context_Sizes.GetUserSizes(userId));
         }

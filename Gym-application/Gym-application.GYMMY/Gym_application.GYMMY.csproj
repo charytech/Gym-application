@@ -23,11 +23,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Views\MyAccount\Index.pl-PL.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Index.pl-PL.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Resources\Controllers\HomeController.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Controllers\HomeController.pl-PL.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\MyAccount\Index.pl-PL.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.pl-PL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

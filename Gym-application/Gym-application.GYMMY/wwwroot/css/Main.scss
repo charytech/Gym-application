@@ -1,2 +1,46 @@
 ﻿body {
 }
+.sizes {
+    position: relative;
+    width: 340px;
+
+    img {
+        width: 160px;
+        height:100%;
+    }
+
+    input {
+        position: absolute;
+        width: 70px;
+    }
+
+    #biceps_input {
+        top: 80px;
+        left: 250px;
+    }
+
+    #chest_input {
+        top: 70px;
+        left: 20px;
+    }
+    
+    #forearm_input {
+        top: 120px;
+        left: 10px;
+    }
+
+    #hips_input {
+        top: 160px;
+        left: 240px;
+    }
+
+    #thigh_input {
+        top: 195px;
+        left: 245px;
+    }
+
+    #waist_input {
+        top: 185px;
+        left: 30px;
+    }
+}

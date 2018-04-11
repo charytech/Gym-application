@@ -32,5 +32,11 @@
     "inputFiles": [
       "wwwroot/lib/bootstrap/dist/css/bootstrap.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Main.min.css",
+    "inputFiles": [
+      "wwwroot/css/Main.css"
+    ]
   }
 ]
