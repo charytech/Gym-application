@@ -22,22 +22,58 @@ namespace Gym_application.GYMMY.Controllers
 
         public async Task<IActionResult> Index() //like edit action for calculators
         {
-            
-            var UserDetail = await _context_UserDetail.GetUserDetail(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var UserDetail = await _context_UserDetail.GetUserDetail(userId);
             if (UserDetail == null)
             {
                return RedirectToAction("Create");
             }            
             else
             {
-                MyAccountViewModel viewMo = new MyAccountViewModel() { UserDetail = UserDetail, Sizes = new Size()};
+                MyAccountViewModel viewMo = new MyAccountViewModel() { UserDetail = UserDetail, Sizes = await _context_Sizes.GetActualSize(userId)?? new Size()};
                 return View(viewMo);
             }
+        }
+       
+        //[Bind("Somatotyp,Aim,Height,Sex,Activity")]
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index([Bind("UserDetail,UserDetail.Aim,UserDetail.Somatotyp,UserDetail.Age,UserDetail.Sex,UserDetail.Activity,UserDetail.Calculator_Type,UserDetail.Authomatic_calculate,UserDetail.Calories_after_BMR_multiply_activity,UserDetail.Calories_for_calculators," +
+            "Sizes,Sizes.Weight,Sizes.Biceps,Sizes.Waist,Sizes.Height,Sizes.Chest,Sizes.Thigh,Sizes.Forearm,Sizes.Hips,Sizes.Fat,Sizes.Muscle_Mass")] MyAccountViewModel myModel, short new_BMR, bool save_new_BMR)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (save_new_BMR == true)
+                    {
+                        myModel.UserDetail.Calories_after_BMR_multiply_activity = new_BMR;
+                    }
+                    string userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    myModel.Sizes.Kind_Of_Sizes = Kind_of_Sizes.Actual;
+                    myModel.Sizes.Create_Date = DateTime.Now;
+                    myModel.Sizes.UserId=userid ;
+                    myModel.UserDetail.Id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    _context_Sizes.SaveActualSizes(myModel.Sizes);
+                    await _context_Sizes.SaveChangesAsync();
+                    _context_UserDetail.UpdateUserDetail(myModel.UserDetail);
+                    await _context_UserDetail.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            return View(myModel);
         }
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Somatotyp,Aim,Height,Sex,Activity")] User_Detail user_Detail)
@@ -53,7 +89,7 @@ namespace Gym_application.GYMMY.Controllers
                 }
                 catch (Exception e)
                 {
-
+                    throw new Exception(e.Message);
                 }
             }
             return View(user_Detail);

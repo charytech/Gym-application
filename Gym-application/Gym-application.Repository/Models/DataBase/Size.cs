@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Gym_application.Repository.Models.DataBase
@@ -22,10 +23,29 @@ namespace Gym_application.Repository.Models.DataBase
         public Byte Muscle_Mass { get; set; }
         public DateTime Create_Date { get; set; }
         public User User { get; set; }
+        public bool My_Equal (Object obj)
+        {
+            if (obj == null || !(obj is Size))
+                return false;
+            else
+            {
+                Size bufor = (Size)obj;
+                return (this.Biceps == bufor.Biceps &&
+                    this.Chest == bufor.Chest &&
+                    this.Fat == bufor.Fat &&
+                    this.Forearm == bufor.Forearm &&
+                    this.Height == bufor.Height &&
+                    this.Hips == bufor.Hips &&
+                    this.Muscle_Mass == bufor.Muscle_Mass &&
+                    this.Thigh == bufor.Thigh &&
+                    this.Waist == bufor.Waist &&
+                    this.Weight == bufor.Weight)?true:false;
+            }               
+        }
     }
     public enum Kind_of_Sizes
     {// before- rozmiary do ktorych bede po
-        Before,Aim,Story,Now
+        Before,Aim,Story,Actual
     }
    
 }

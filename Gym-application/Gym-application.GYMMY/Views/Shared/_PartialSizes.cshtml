@@ -5,128 +5,132 @@
 @{
 }
 
-    <div class="form-group row">
-        <label asp-for="Sizes.Height" class="col-sm-4 col-form-label-sm"></label>
-        <div class="col-sm-8">
-            <input asp-for="Sizes.Height" class="form-control form-control-sm" ng-model="Height" ng-init="Height=@Model.Sizes.Height" />
-            <span asp-validation-for="Sizes.Height" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label asp-for="Sizes.Weight" class="col-sm-4 col-form-label-sm"></label>
-        <div class="col-sm-8">
-            <input asp-for="Sizes.Weight" ng-model="Weight" ng-init="Weight=@Model.Sizes.Weight" class="form-control form-control-sm" />
-            <span asp-validation-for="Sizes.Weight" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label asp-for="Sizes.Muscle_Mass" class="col-sm-4 col-form-label"></label>
-        <div class="col-sm-8">
-            <input asp-for="Sizes.Muscle_Mass" class="form-control form-control-sm" />
-            <span asp-validation-for="Sizes.Muscle_Mass" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label asp-for="Sizes.Fat" class="col-sm-4 col-form-label"></label>
-        <div class="col-sm-8">
-            <input asp-for="Sizes.Fat" class="form-control form-control-sm" />
-            <span asp-validation-for="Sizes.Fat" class="text-danger"></span>
-        </div>
-    </div>
-<div class="row sizes mx-auto">
-    <img class="mx-auto"  src="~/images/model.jpg" />
-    <input asp-for="Sizes.Biceps" class="form-control form-control-sm" id="biceps_input" />
-    <span asp-validation-for="Sizes.Biceps" class="text-danger"></span>   
-    <input asp-for="Sizes.Chest" class="form-control form-control-sm" id="chest_input" />
-    <span asp-validation-for="Sizes.Chest" class="text-danger"></span>
-    <input asp-for="Sizes.Forearm" class="form-control form-control-sm" id="forearm_input" />
-    <span asp-validation-for="Sizes.Forearm" class="text-danger"></span>
-    <input asp-for="Sizes.Hips" class="form-control form-control-sm" id="hips_input" />
-    <span asp-validation-for="Sizes.Hips" class="text-danger"></span>
-    <input asp-for="Sizes.Thigh" class="form-control form-control-sm" id="thigh_input" />
-    <span asp-validation-for="Sizes.Thigh" class="text-danger"></span>
-    <input asp-for="Sizes.Waist" class="form-control form-control-sm" id="waist_input" />
-    <span asp-validation-for="Sizes.Waist" class="text-danger"></span>
-</div>
-
-@*<div class="row">
-    
-    <div class="col-sm-8">
-        ss
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group form row">
-            <label asp-for="Sizes.Height" class="col-sm-4 col-form-label-sm"></label>
-            <div class="col-sm-8">
+    <div class="form-group row no-gutters text-center">
+        <div class="col-md-6 col-lg-3">
+            <label asp-for="Sizes.Height" class="col col-form-label-sm"></label>
+            <div class="col">
                 <input asp-for="Sizes.Height" class="form-control form-control-sm" ng-model="Height" ng-init="Height=@Model.Sizes.Height" />
                 <span asp-validation-for="Sizes.Height" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Weight" class="col-sm-4 col-form-label-sm"></label>
-            <div class="col-sm-8">
+        <div class="col-md-6 col-lg-3">
+            <label asp-for="Sizes.Weight" class="col col-form-label-sm"></label>
+            <div class="col">
                 <input asp-for="Sizes.Weight" ng-model="Weight" ng-init="Weight=@Model.Sizes.Weight" class="form-control form-control-sm" />
                 <span asp-validation-for="Sizes.Weight" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Biceps" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Biceps" class="form-control" />
-                <span asp-validation-for="Sizes.Biceps" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Chest" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Chest" class="form-control" />
-                <span asp-validation-for="Sizes.Chest" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Fat" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Fat" class="form-control " />
-                <span asp-validation-for="Sizes.Fat" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Forearm" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Forearm" class="form-control" />
-                <span asp-validation-for="Sizes.Forearm" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Hips" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Hips" class="form-control" />
-                <span asp-validation-for="Sizes.Hips" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Muscle_Mass" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Muscle_Mass" class="form-control" />
+        <div class="col-md-6 col-lg-3">
+            <label asp-for="Sizes.Muscle_Mass" class="col col-form-label"></label>
+            <div class="col">
+                <input asp-for="Sizes.Muscle_Mass" class="form-control form-control-sm" />
                 <span asp-validation-for="Sizes.Muscle_Mass" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Thigh" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Thigh" class="form-control" />
-                <span asp-validation-for="Sizes.Thigh" class="text-danger"></span>
+        <div class="col-md-6 col-lg-3">
+            <label asp-for="Sizes.Fat" class="col col-form-label"></label>
+            <div class="col">
+                <input asp-for="Sizes.Fat" class="form-control form-control-sm" />
+                <span asp-validation-for="Sizes.Fat" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group row">
-            <label asp-for="Sizes.Waist" class="col-sm-4 col-form-label"></label>
-            <div class="col-sm-8">
-                <input asp-for="Sizes.Waist" class="form-control" />
-                <span asp-validation-for="Sizes.Waist" class="text-danger"></span>
-            </div>
-        </div>
-
+    </div>
+  
+    <div class="row sizes mx-auto">
+        <img class="mx-auto" src="~/images/model.jpg" />
+        <input asp-for="Sizes.Biceps" class="form-control form-control-sm" id="biceps_input" />
+        <span asp-validation-for="Sizes.Biceps" class="text-danger"></span>
+        <input asp-for="Sizes.Chest" class="form-control form-control-sm" id="chest_input" />
+        <span asp-validation-for="Sizes.Chest" class="text-danger"></span>
+        <input asp-for="Sizes.Forearm" class="form-control form-control-sm" id="forearm_input" />
+        <span asp-validation-for="Sizes.Forearm" class="text-danger"></span>
+        <input asp-for="Sizes.Hips" class="form-control form-control-sm" id="hips_input" />
+        <span asp-validation-for="Sizes.Hips" class="text-danger"></span>
+        <input asp-for="Sizes.Thigh" class="form-control form-control-sm" id="thigh_input" />
+        <span asp-validation-for="Sizes.Thigh" class="text-danger"></span>
+        <input asp-for="Sizes.Waist" class="form-control form-control-sm" id="waist_input" />
+        <span asp-validation-for="Sizes.Waist" class="text-danger"></span>
     </div>
 
 
-</div>*@
+    @*<div class="row">
+
+            <div class="col-sm-8">
+                ss
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group form row">
+                    <label asp-for="Sizes.Height" class="col-sm-4 col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Height" class="form-control form-control-sm" ng-model="Height" ng-init="Height=@Model.Sizes.Height" />
+                        <span asp-validation-for="Sizes.Height" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Weight" class="col-sm-4 col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Weight" ng-model="Weight" ng-init="Weight=@Model.Sizes.Weight" class="form-control form-control-sm" />
+                        <span asp-validation-for="Sizes.Weight" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Biceps" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Biceps" class="form-control" />
+                        <span asp-validation-for="Sizes.Biceps" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Chest" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Chest" class="form-control" />
+                        <span asp-validation-for="Sizes.Chest" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Fat" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Fat" class="form-control " />
+                        <span asp-validation-for="Sizes.Fat" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Forearm" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Forearm" class="form-control" />
+                        <span asp-validation-for="Sizes.Forearm" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Hips" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Hips" class="form-control" />
+                        <span asp-validation-for="Sizes.Hips" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Muscle_Mass" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Muscle_Mass" class="form-control" />
+                        <span asp-validation-for="Sizes.Muscle_Mass" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Thigh" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Thigh" class="form-control" />
+                        <span asp-validation-for="Sizes.Thigh" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Sizes.Waist" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="Sizes.Waist" class="form-control" />
+                        <span asp-validation-for="Sizes.Waist" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>*@

@@ -23,12 +23,12 @@ namespace Gym_application.Repository.Models.DataBase
         public Calculator_type Calculator_Type { get; set; }
         public bool Authomatic_calculate { get; set; }
         [Display(Name ="Saved calories")]
-        public short? Calories_after_BMR_multiply_activity { get; set; }
+        public short? Calories_after_BMR_multiply_activity { get; set; } //this is a latest calculated per Aim
         [Display(Name = "Calories for operations")]
         public short? Calories_for_calculators { get; set; }
         public User User { get; set; }
-        [NotMapped]
-        public int Totaly_Calories => (Aim == Kind_of_Aim.Reduction) ? (int)Calories_after_BMR_multiply_activity - (int)Calories_for_calculators : (Aim == Kind_of_Aim.Mass) ? (int)Calories_after_BMR_multiply_activity + (int)Calories_for_calculators : (int)Calories_after_BMR_multiply_activity; 
+        //[NotMapped]
+        //public int Totaly_Calories => (Aim == Kind_of_Aim.Reduction) ? (int)Calories_after_BMR_multiply_activity - (int)Calories_for_calculators : (Aim == Kind_of_Aim.Mass) ? (int)Calories_after_BMR_multiply_activity + (int)Calories_for_calculators : (int)Calories_after_BMR_multiply_activity; 
 
         
         //#region Aim 

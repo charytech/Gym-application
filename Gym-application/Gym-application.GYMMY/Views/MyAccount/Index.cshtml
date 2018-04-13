@@ -25,118 +25,125 @@
 <h2>@Localizer["My Account"]</h2>
 <h4> Look at your data</h4>
 <hr />
-<div class="row" ng-app="myApp" ng-controller="calculatorAng" ng-click="myFunc()" >
-    <div class="col-md-6" >
-        
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group row">
-                <label asp-for="UserDetail.Age" class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <input asp-for="UserDetail.Age"  ng-init="Age=@Model.UserDetail.Age" ng-model="Age" class="form-control">
-                    <span asp-validation-for="UserDetail.Age" class="text-danger"></span>
-                </div>
-            </div>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
-                    <div class="col-sm-8" ng-init="Sex='@Model.UserDetail.Sex'">
-                        <div class="form-check">
-                            <input asp-for="UserDetail.Sex" ng-model="Sex" type="radio" name="Sex" id="Woman" value="True">
-                            <label class="form-check-label" for="Woman">
-                                Woman
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="UserDetail.Sex" ng-model="Sex" type="radio" name="Sex" id="Men" value="False">
-                            <label class="form-check-label" for="Men">
-                                Men
-                            </label>
-                        </div>
+<div ng-app="myApp" ng-controller="calculatorAng" ng-click="myFunc()">
+    
+    <form asp-action="Index">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <label asp-for="UserDetail.Age" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserDetail.Age" ng-init="Age=@Model.UserDetail.Age" ng-model="Age" class="form-control">
+                        <span asp-validation-for="UserDetail.Age" class="text-danger"></span>
                     </div>
                 </div>
-            </fieldset>           
-            <div class="form-group row">
-                <label asp-for="UserDetail.Somatotyp" class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <select asp-for="UserDetail.Somatotyp" asp-items="Html.GetEnumSelectList<Somatotyp>()" ng-init="Somatotyp='@Somatotyp_init'" ng-model="Somatotyp" class="form-control"></select>
-                    <span asp-validation-for="UserDetail.Somatotyp" class="text-danger"></span>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
+                        <div class=" row col-sm-8" ng-init="Sex='@Model.UserDetail.Sex'">
+                            <div class="col">
+                                <input asp-for="UserDetail.Sex" ng-model="Sex" type="radio" name="Sex" id="Woman" value="True">
+                                <label class="form-check-label" for="Woman">
+                                    Woman
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input asp-for="UserDetail.Sex" ng-model="Sex" type="radio" name="Sex" id="Men" value="False">
+                                <label class="form-check-label" for="Men">
+                                    Men
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <label asp-for="UserDetail.Somatotyp" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <select asp-for="UserDetail.Somatotyp" asp-items="Html.GetEnumSelectList<Somatotyp>()" ng-init="Somatotyp='@Somatotyp_init'" ng-model="Somatotyp" class="form-control"></select>
+                        <span asp-validation-for="UserDetail.Somatotyp" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="UserDetail.Aim" class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <select asp-for="UserDetail.Aim" asp-items="Html.GetEnumSelectList<Kind_of_Aim>()" ng-init="Aim='@Aim_init'" ng-model="Aim" class="form-control"></select>
-                    <span asp-validation-for="UserDetail.Aim" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="UserDetail.Aim" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <select asp-for="UserDetail.Aim" asp-items="Html.GetEnumSelectList<Kind_of_Aim>()" ng-init="Aim='@Aim_init'" ng-model="Aim" class="form-control"></select>
+                        <span asp-validation-for="UserDetail.Aim" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>           
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label"> Activity {{Activity / 100}} </label>
-                <div class="col-sm-8">
-                    <input name="Activity" class="form-control" type="range" min="100" max="200" step="10" ng-model="Activity" >
-                    <span asp-validation-for="UserDetail.Activity" class="text-danger"></span>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"> Activity {{Activity / 100}} </label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserDetail.Activity" class="form-control" type="range" min="100" max="200" step="10" ng-init="Activity=@Model.UserDetail.Activity" ng-model="Activity">
+                        <span asp-validation-for="UserDetail.Activity" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>            
-            <div class="form-group row">
-                <label asp-for="UserDetail.Calories_for_calculators"  class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <input asp-for="UserDetail.Calories_for_calculators" ng-model="Calories_oper" ng-init="Calories_oper=@Model.UserDetail.Calories_for_calculators " class="form-control" />
-                    <span asp-validation-for="UserDetail.Calories_for_calculators" class="text-danger"></span>
+                <div class="form-group row">
+                    <label asp-for="UserDetail.Calories_for_calculators" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserDetail.Calories_for_calculators" ng-model="Calories_oper" ng-init="Calories_oper=@Model.UserDetail.Calories_for_calculators " class="form-control" />
+                        <span asp-validation-for="UserDetail.Calories_for_calculators" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="UserDetail.Authomatic_calculate" /> @Html.DisplayNameFor(model => model.UserDetail.Authomatic_calculate)
-                    </label>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="UserDetail.Authomatic_calculate" /> @Html.DisplayNameFor(model => model.UserDetail.Authomatic_calculate)
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row" ng-init="Calculator_Type='@Calculator_Type_init'">
-                <label asp-for="UserDetail.Calculator_Type" class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <select asp-for="UserDetail.Calculator_Type" asp-items=select ng-model="Calculator_Type" class="form-control"></select>
-                    <span asp-validation-for="UserDetail.Calculator_Type" class="text-danger"></span>
+                <div class="form-group row" ng-init="Calculator_Type='@Calculator_Type_init'">
+                    <label asp-for="UserDetail.Calculator_Type" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <select asp-for="UserDetail.Calculator_Type" asp-items=select ng-model="Calculator_Type" class="form-control"></select>
+                        <span asp-validation-for="UserDetail.Calculator_Type" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            @*<div class="form-group row">
-                <label class="col-sm-4 col-form-label">BMR {{BMR}}</label>
-                <div class="col-sm-8">
-                    <input ng-model="BMR" class="form-control" />
-                </div>
-            </div>*@
-            @*<div class="form-group">
-                <label asp-for="Calories_after_BMR_multiply_activity" class="control-label"></label>
-                <input asp-for="Calories_after_BMR_multiply_activity" ng-model="BMR" class="form-control" />
-                <span asp-validation-for="Calories_after_BMR_multiply_activity" class="text-danger"></span>
-            </div>*@
-            @*<div class="form-group">
-                Protein
-                <input type="range" min="1" max="97" step="1" val="20"ng-model="Protein">
-                Fat
-                <input type="range" min="1" max="97" step="1" val="20" ng-model="Fat">
-                Carbo
-                <input type="range" min="1" max="97" step="1" val="20" ng-model="Carbo">
-            </div>
-        
-            *@
-            <div class="form-group row">
-                <label asp-for="UserDetail.Calories_after_BMR_multiply_activity" class="col-sm-4 col-form-label"></label>
-                <div class="col-sm-8">
-                    <input asp-for="UserDetail.Calories_after_BMR_multiply_activity" class="form-control" ng-model="Saved_BMR" ng-init="Saved_BMR=@Model.UserDetail.Calories_after_BMR_multiply_activity" />
-                    <span asp-validation-for="UserDetail.Calories_after_BMR_multiply_activity" class="text-danger"></span>
-                </div>
-            </div>
+                @*<div class="form-group row">
+                        <label class="col-sm-4 col-form-label">BMR {{BMR}}</label>
+                        <div class="col-sm-8">
+                            <input ng-model="BMR" class="form-control" />
+                        </div>
+                    </div>*@
+                @*<div class="form-group">
+                        <label asp-for="Calories_after_BMR_multiply_activity" class="control-label"></label>
+                        <input asp-for="Calories_after_BMR_multiply_activity" ng-model="BMR" class="form-control" />
+                        <span asp-validation-for="Calories_after_BMR_multiply_activity" class="text-danger"></span>
+                    </div>*@
+                @*<div class="form-group">
+                        Protein
+                        <input type="range" min="1" max="97" step="1" val="20"ng-model="Protein">
+                        Fat
+                        <input type="range" min="1" max="97" step="1" val="20" ng-model="Fat">
+                        Carbo
+                        <input type="range" min="1" max="97" step="1" val="20" ng-model="Carbo">
+                    </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                *@
+                <div class="form-group row">
+                    <label asp-for="UserDetail.Calories_after_BMR_multiply_activity" class="col-sm-4 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserDetail.Calories_after_BMR_multiply_activity" class="form-control" ng-model="Saved_BMR" ng-init="Saved_BMR=@Model.UserDetail.Calories_after_BMR_multiply_activity" />
+                        <span asp-validation-for="UserDetail.Calories_after_BMR_multiply_activity" class="text-danger"></span>
+                    </div>
+                </div>             
+
             </div>
-        </form>
-    </div>
-    <div class="col-md-6">
-        @Html.Partial("_PartialSizes" , Model)
-    </div>
+            <div class="col-md-6">
+                @Html.Partial("_PartialSizes", Model)
+            </div>
+        </div>
+        <div class="row ">
+            <input type="checkbox" name="save_new_BMR" id="save_new_BMR" value="true"/> Save new BMR
+            <input name="new_BMR" type="number" ng-model="BMR_Activ_Somatotyp_Aim" class="ng-hide"/>
+            <div class="mx-auto form-group ">
+                <input type="submit" value="Save All" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-12">
             <div class="table-responsive-sm">
                 <table class="table">
                     <thead>
@@ -164,13 +171,11 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="col-sm-6">
-
-        </div>
-    </div>
+        </div>        
+    </div>    
 </div>
- 
+
+
 @*<div>
     <a asp-action="Index">Back to List</a>
 </div>*@

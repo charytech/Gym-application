@@ -23,6 +23,7 @@ namespace Gym_application.Repository.Models.IRepo
 
         DbSet<User_Detail> User_Details { get; set; }
         int SaveChanges();
+        Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry Update(Object entity);
         Database Database { get; }
     }
 }

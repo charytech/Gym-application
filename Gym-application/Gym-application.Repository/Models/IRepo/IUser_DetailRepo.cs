@@ -10,6 +10,7 @@ namespace Gym_application.Repository.Models.IRepo
     {
         Task<User_Detail> GetUserDetail(string UserId);
         void Add_User_Detail(User_Detail user_Detail);
+        void UpdateUserDetail(User_Detail detail);
         Task<int> SaveChangesAsync();
     }
 }

@@ -40,7 +40,10 @@ namespace Gym_application.Repository.Data
         public DbSet<Size> Sizes { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<User_Detail> User_Details { get; set; }
-
+       //void c()
+       // {
+       //     this.Update();
+       // }
         DbLoggerCategory.Database IApplicationDbContextRepo.Database => throw new NotImplementedException();
     }
 }

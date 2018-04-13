@@ -20,6 +20,8 @@ namespace Gym_application.Repository.Models.Repo
 
         public void Add_User_Detail(User_Detail user_Detail) => _db.User_Details.Add(user_Detail);
         public Task<User_Detail> GetUserDetail(string UserId) => _db.User_Details.AsNoTracking().SingleOrDefaultAsync(m => m.Id == UserId);
+        public void UpdateUserDetail(User_Detail detail) => _db.Update(detail);
+
         public Task<int> SaveChangesAsync()=> _db.SaveChangesAsync();
  
         
