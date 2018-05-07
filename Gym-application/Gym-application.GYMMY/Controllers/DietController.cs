@@ -10,6 +10,7 @@ using Gym_application.Repository.Models.DataBase;
 using Gym_application.Repository.Models.IRepo;
 using Gym_application.Repository.Models.ViewModels.DietViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -26,24 +27,24 @@ namespace Gym_application.GYMMY.Controllers
         // GET: Diet
         public async Task<IActionResult> Index()
         {
-            var dietlist = _context.UserDietList(User.Identity.Name);
+            var dietlist = _context.UserDietList(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
             return View(await dietlist.ToListAsync());
         }
 
         //GET: Diet/Details/5
         public IActionResult Details(int? id)
         {
-
-            if (id == null && _context.Check_Access_to_Diet((int)id, User.Identity.Name) )
+            if (id == null || !_context.Check_Access_to_Diet((int)id, this.User.FindFirstValue(ClaimTypes.NameIdentifier)) )
             {
                 return NotFound();
             }
+            
             //var diet = await _context.GetDiet((int)id);
             var model = _context.Get_Days_and_Meals_for_Diet((int)id).ToList();
-            if (model == null)
-            {
-                return NotFound();
-            }
+            //if (model == null)
+            //{
+            //    return NotFound();
+            //}
             ViewBag.DietId = id;
             return View(model);
         }
@@ -65,7 +66,8 @@ namespace Gym_application.GYMMY.Controllers
             {
                 try
                 {
-                    diet.UserId = User.Identity.Name;
+                    diet.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    diet.Created_Date = DateTime.Now;
                     _context.AddDiet(diet);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details", new { id = diet.Id });

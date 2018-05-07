@@ -2,6 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+
+
+
+<div class="row index_grid">
+    <div class="col-6 col-md-3">
+        <a asp-action="Index" asp-controller="Home" class="grid_window">
+            1
+        </a>
+    </div>
+    <div class="col-6 col-md-3 ">
+        <a class="grid_window" asp-controller="MyAccount" asp-action="Index">
+            MyAccount
+        </a>
+    </div>
+    <div class="col-6 col-md-3 ">
+        <a class="grid_window" asp-controller="Diet" asp-action="Index">
+            Diet
+        </a>
+    </div>
+    <div class="col-6 col-md-3 ">
+        <a class="grid_window">
+            4
+        </a>
+    </div>
+</div>
+
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>

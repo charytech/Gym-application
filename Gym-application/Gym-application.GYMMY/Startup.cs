@@ -68,6 +68,8 @@ namespace Gym_application.GYMMY
             services.AddTransient<IUser_DetailRepo, User_DetailRepo>();
             services.AddTransient<IApplicationDbContextRepo, ApplicationDbContext>();
             services.AddTransient<IDietRepo, DietRepo>();
+            services.AddTransient<IMealRepo, MealRepo>();
+
 
 
 

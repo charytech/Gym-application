@@ -17,20 +17,7 @@
                 <input asp-for="Nazwa" class="form-control" />
                 <span asp-validation-for="Nazwa" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="OwnerId" class="control-label"></label>
-                <input asp-for="OwnerId" class="form-control" />
-                <span asp-validation-for="OwnerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Created_Date" class="control-label"></label>
-                <input asp-for="Created_Date" class="form-control" />
-                <span asp-validation-for="Created_Date" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

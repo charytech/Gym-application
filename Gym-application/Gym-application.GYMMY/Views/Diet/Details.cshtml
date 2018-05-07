@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var za = Model.SelectMany(x => x.ListMeals).Distinct();
 }
 
 <h2>Details @ViewBag.DietId</h2>
@@ -10,42 +11,63 @@
     <h4>Diet</h4>
     <hr />
     
+
+
+    <div class="row">
         @foreach (var a in Model)
         {
             if (a.Which_day != 0)
             {
-                <dl class="dl-horizontal">
-                    <dt>
-                        Day: @Html.DisplayFor(mod => a.Which_day)
-                    </dt>
-                    @foreach (var c in a.ListMeals)
-                    {
-                        <dd>
-                            @Html.DisplayFor(item => c.Name)
-                        </dd>
-                        <dd>
-                            @Html.DisplayFor(item => c.Calories)
-                        </dd>
-                    }
-                </dl>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-1 ">
+                    <div class="col diet_day">
+                        <div class="col text-center">
+                            <h5> Day: @Html.DisplayFor(mod => a.Which_day)</h5>
+                        </div>
+                        <table class="table table-sm text-center">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Cal</th>
+                                    <th>P</th>
+                                    <th>C</th>
+                                    <th>F</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in a.ListMeals)
+                                {
+                                    <tr >
+                                        <th>@Html.DisplayFor(item => c.Name)</th>
+                                        <th>@Html.DisplayFor(item => c.Calories)</th>
+                                        <th>@Html.DisplayFor(item => c.Protein)</th>
+                                        <th>@Html.DisplayFor(item => c.Carbohydrates)</th>
+                                        <th>@Html.DisplayFor(item => c.Fat)</th>
+                                        <th><a class="btn-sm btn-danger" asp-action="Delete">X</a></th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             }
-
         } 
-    @foreach (var meal in Model)
+    </div>
+  
+
+    <h1>List of meals:</h1>
+
+    @foreach (var meal in za)
     {
-        @foreach (var c in meal.ListMeals)
-        { 
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayFor(item => c.Name)
+                @Html.DisplayFor(item => meal.Name)
             </dt>
             <dd>
-                @Html.DisplayFor(item => c.Calories)
+                @Html.DisplayFor(item => meal.Calories)
             </dd>
         </dl>
-        }
-
-        }
+    }
 </div>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
