@@ -1,48 +1,130 @@
-﻿@model Gym_application.Repository.Models.DataBase.Meal
+﻿@model Gym_application.Repository.Models.ViewModels.MealViewModels.MealViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
+<div class="text-center" style="border:3px solid red">
+   <div class="row">
+       <div class="col">
+           <h2 class="">Edit @Model.Meal.Name</h2>
 
-<h2>Details</h2>
+       </div>
+   </div>
+    <div class="row">
+        <div class="col-md-6">    
+            <h3>Values in Meal</h3>
 
-<div>
-    <h4>Meal</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Calories)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Calories)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Protein)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Protein)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Fat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Fat)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Carbohydrates)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Carbohydrates)
-        </dd>
-    </dl>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">C</th>
+                            <th scope="col">B</th>
+                            <th scope="col">W</th>
+                            <th scope="col">T</th>
+                            <th scope="col">G</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var value in Model.Values)
+            {
+                            <tr>
+                                <th scope="row">@value.Name</th>
+                                <td>@value.Calorie</td>
+                                <td>@value.Protein</td>
+                                <td>@value.Carbohydrates</td>
+                                <td>@value.Fat</td>
+                                <td>@value.Grams g</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+        </div>
+        <div class="col-md-6">
+            <div ng-cloak ng-app="myApp" ng-controller="customersCtrl" data-ng-init="init()">
+                @*<ul>
+                <li ng-repeat="x in myData">
+                    {{ x.name + ', ' + x.calorie }}
+                </li>
+            </ul>*@
+                <h3>Products</h3>
+                    <input class="form-control mr-sm-2" ng-model="search" type="search" placeholder="Search" aria-label="Search">
+          
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">C</th>
+                            <th scope="col">B</th>
+                            <th scope="col">W</th>
+                            <th scope="col">T</th>
+                            <th scope="col">D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in myData | filtername:search">
+                            <th scope="row">{{x.name}}</th>
+                            <td>{{x.calorie}}</td>
+                            <td>{{x.protein}}</td>
+                            <td>{{x.carbohydrates}}</td>
+                            <td>{{x.fat}}</td>
+                            <td>{{x.dish}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @*<div class="col-md-6">
+            @await Component.InvokeAsync("Nutritional_Values")
+            
+
+        </div>*@
+    </div>
+    
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+<script>
+    var app = angular.module('myApp', []);
+    app.filter('filtername', function () {
+        return function (x, search) {
+            if (search == undefined) {
+                search = '';
+            }
+            var log=[];
+            angular.forEach(x, function (value) {
+                if (value.name.toLowerCase().includes(search.toLowerCase())) {
+                    this.push(value);
+                }}, log);
+            return log;
+        };
+    });
+    app.controller('customersCtrl', function ($scope, $http) {
+        
+        $scope.init = function () {
+
+            $http.get('/meal/values').then(function (response) {
+                $scope.myData = response.data;
+            });
+        };
+        
+        //app.filter('filtername', function () {
+        //    return function (x) {
+        //        var i, c, txt = "";
+        //        for (i = 0; i < x.length; i++) {
+        //            c = x[i];
+        //            if (i % 2 == 0) {
+        //                c = c.toUpperCase();
+        //            }
+        //            txt += c;
+        //        }
+        //        return txt;
+        //    };
+        //});
+});
+</script>
+

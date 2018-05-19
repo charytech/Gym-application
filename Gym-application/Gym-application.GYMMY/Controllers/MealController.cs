@@ -16,23 +16,31 @@ namespace Gym_application.GYMMY.Controllers
     public class MealController : Controller
     {
         private readonly IMealRepo _context;
+        private readonly INutritional_ValuesRepo _context2;
 
-        public MealController(IMealRepo context)
+        public MealController(IMealRepo context,INutritional_ValuesRepo context2)
         {
             _context = context;
+            _context2 = context2;
+
         }
 
         // GET: Meal
-        //public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index(int id)
         //{
-        //    return View(await _context.Meals.ToListAsync());
+        //    return View(await _context.GetMealAsync(id));
         //}
 
+
+        //public JsonResult Data_Meal(int id) {
+        //    return Json(_context.MealData((int)id));
+        //}
+        public async Task<JsonResult> values()
+        {
+            return Json(await _context2.GetValuesAsync());
+        }
         // GET: Meal/Details/5
         [HttpGet]
-        public JsonResult Data_Meal(int? id) {
-            return Json(_context.MealData((int)id));
-        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,13 +48,13 @@ namespace Gym_application.GYMMY.Controllers
                 return NotFound();
             }
 
-            var meal = await _context.GetMealAsync((int)id);
-            if (meal == null)
+            var data = await _context.MealData((int)id);
+            if (data == null)
             {
                 return NotFound();
             }
 
-            return View(meal);
+            return View(data);
         }
 
         // GET: Meal/Create

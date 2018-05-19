@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Gym_application.Repository.Models.DataBase.Nutritional_Value>
+
+<h3>Products</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">C</th>
+            <th scope="col">B</th>
+            <th scope="col">W</th>
+            <th scope="col">T</th>
+            <th scope="col">D</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var value in Model)
+            {
+            <tr>
+                <th scope="row">@value.Name</th>
+                <td>@value.Calorie</td>
+                <td>@value.Protein</td>
+                <td>@value.Carbohydrates</td>
+                <td>@value.Fat</td>
+                <td>@value.Dish</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
