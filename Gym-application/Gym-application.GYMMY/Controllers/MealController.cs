@@ -35,25 +35,29 @@ namespace Gym_application.GYMMY.Controllers
         //public JsonResult Data_Meal(int id) {
         //    return Json(_context.MealData((int)id));
         //}
-        public async Task<JsonResult> values()
+        public async Task<JsonResult> Values()
         {
             return Json(await _context2.GetValuesAsync());
         }
+        public async Task<JsonResult> Mealdata(int id)
+        {
+            return Json(await _context.MealData((int)id));
+        }
+
         // GET: Meal/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? Did,int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
             var data = await _context.MealData((int)id);
             if (data == null)
             {
                 return NotFound();
             }
-
+            ViewBag.DietId = Did;
             return View(data);
         }
 

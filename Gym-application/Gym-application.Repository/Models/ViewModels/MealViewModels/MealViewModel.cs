@@ -12,8 +12,8 @@ namespace Gym_application.Repository.Models.ViewModels.MealViewModels
     }
     public class ValuesViewModel
     {
-        public int Id { get; set; }
-        public int Values_Meal_Id { get; set; }
+        public int Value_Id { get; set; } //this is id form NutritionalValues 
+        public int Nutritional_Values_Meal_Id { get; set; }
 
         public string Name { get; set; }
         // will be save multiply 10 examle : if u will want save 49,2 Protein u need save it like 492
@@ -23,4 +23,5 @@ namespace Gym_application.Repository.Models.ViewModels.MealViewModels
         public short Carbohydrates { get; set; }
         public int Grams { get; set; }
     }
+ 
 }

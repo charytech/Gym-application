@@ -3,18 +3,50 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div class="text-center" style="border:3px solid red">
+<div class="text-center p-2" style="border:3px solid red">
    <div class="row">
        <div class="col">
-           <h2 class="">Edit @Model.Meal.Name</h2>
+           <h2 class="">Edit @Model.Meal.Id</h2>
 
        </div>
    </div>
-    <div class="row">
+    <div class="row"  ng-cloak ng-app="myApp" ng-controller="NutritionalValuesCtrl" data-ng-init="init()">
         <div class="col-md-6">    
-            <h3>Values in Meal</h3>
+            <h3>Values in Meal </h3>
 
-                <table class="table table-striped">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">C</th>
+                        <th scope="col">B</th>
+                        <th scope="col">W</th>
+                        <th scope="col">T</th>
+                        <th scope="col">G</th>
+                        <th scope="col">R</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,value) in list">
+                        <th scope="row">{{value.name}}</th>
+                        <td>{{Calculate_per_grams(value.calorie,value.grams) }}</td>
+                        <td>{{Calculate_per_grams(value.protein,value.grams) }}</td>
+                        <td>{{Calculate_per_grams(value.carbohydrates,value.grams) }}</td>
+                        <td>{{Calculate_per_grams(value.fat,value.grams) }}</td>
+
+                        <td><input class="form-control" type="text" ng-change="calcall()" ng-model="value.grams"></td>
+                        <td class="btn btn-danger" ng-click="Remove_Prod(key)"> X</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" style="position:absolute; bottom:0px; width:100%;">
+                <div class="col">{{calories_all}}</div>
+                <div class="col">{{carbos_all}}</div>
+                <div class="col">{{fats_all}}</div>
+                <div class="col">{{proteins_all}}</div>
+
+            </div>
+                @*<table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -40,56 +72,96 @@
                             </tr>
                         }
                     </tbody>
-                </table>
+                </table>*@
 
         </div>
         <div class="col-md-6">
-            <div ng-cloak ng-app="myApp" ng-controller="customersCtrl" data-ng-init="init()">
                 @*<ul>
                 <li ng-repeat="x in myData">
                     {{ x.name + ', ' + x.calorie }}
                 </li>
             </ul>*@
                 <h3>Products</h3>
-                    <input class="form-control mr-sm-2" ng-model="search" type="search" placeholder="Search" aria-label="Search">
-          
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">C</th>
-                            <th scope="col">B</th>
-                            <th scope="col">W</th>
-                            <th scope="col">T</th>
-                            <th scope="col">D</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="x in myData | filtername:search">
-                            <th scope="row">{{x.name}}</th>
-                            <td>{{x.calorie}}</td>
-                            <td>{{x.protein}}</td>
-                            <td>{{x.carbohydrates}}</td>
-                            <td>{{x.fat}}</td>
-                            <td>{{x.dish}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <input class="form-control " ng-model="search" type="search" placeholder="Search" aria-label="Search">
+                <div  style="overflow: auto; max-height:350px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">C</th>
+                                <th scope="col">B</th>
+                                <th scope="col">W</th>
+                                <th scope="col">T</th>
+                                <th scope="col">D</th>
+                                <th scope="col">H</th>
+                                <th scope="col">A</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in myData | filtername:search">
+                                <th scope="row">{{x.name}}</th>
+                                <td>{{x.calorie}}</td>
+                                <td>{{x.protein}}</td>
+                                <td>{{x.carbohydrates}}</td>
+                                <td>{{x.fat}}</td>
+                                <td>{{x.dish}}</td>
+                                <td></td>
+                                <td class="btn btn-sm btn-success" ng-click="Add_Prod(x)"> Add</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
         </div>
         @*<div class="col-md-6">
             @await Component.InvokeAsync("Nutritional_Values")
             
 
         </div>*@
+        
+        <div class="col-12 my-3">
+            <button class="btn btn-dark" ng-click="Save_Data_post_method()">
+                Save
+            </button>
+        </div>
     </div>
-    
+
 </div>
 
 
 
 <script>
     var app = angular.module('myApp', []);
+    app.service('DataService', function ($http) {
+        //**********----Get All Record----***************
+        var urlGet = '/meal/values';
+        var url_api = '/api/Meal__Nutritional_Value';
+        this.get_all_values = function () {
+            return $http.get(url_api);
+        }
+        var urlGet2 = '/meal/Mealdata/' + '@Model.Meal.Id';
+        this.get_all_values2 = function () {
+            return $http.get(urlGet2);
+        }
+        this.send_post_data = function (urll, datalist) {
+            $http({
+                method: "post",
+                url: urll,
+                data: JSON.stringify({
+                    values: datalist,
+                    meal: {id:2}
+                }),
+                //data: JSON.stringify(datalist),
+                dataType: "json"
+            }).then(function (a) {
+                var cc = a;
+                toastr.info('Elemento insertado correctamente');
+                });
+        }
+    });
     app.filter('filtername', function () {
         return function (x, search) {
             if (search == undefined) {
@@ -103,28 +175,74 @@
             return log;
         };
     });
-    app.controller('customersCtrl', function ($scope, $http) {
-        
+    app.controller('NutritionalValuesCtrl', ['$scope','$http','DataService', function ($scope,$http , DataService) {
+        $scope.list = [];
         $scope.init = function () {
-
-            $http.get('/meal/values').then(function (response) {
+            
+            var _values = DataService.get_all_values();
+            _values.then(function (response) {
                 $scope.myData = response.data;
+            },
+            function (error) {
+                console.log("Error: " + error);
             });
+
+            var _values2 = DataService.get_all_values2();
+            _values2.then(function (response) {
+                $scope.list = response.data.values;
+            },function (error) {
+                console.log("Error: " + error);
+                });
+        };
+        $scope.Calculate_per_grams = function (param, grams) {
+            return Calculate_per_grams_function(param, grams);
+        };
+        function Calculate_per_grams_function(param, grams) {
+            return Math.round((param * (grams / 100)) * 100) / 100;
+        };
+        $scope.$watchCollection('list', function () {
+            Calculate_all();
+        });
+        $scope.calcall = function () {
+            Calculate_all();
+        };
+        function Calculate_all() {            
+            var cal = 0, carbo = 0, fat = 0, protein = 0;
+            angular.forEach($scope.list, function (value) {
+                cal += Calculate_per_grams_function(value.calorie, value.grams);
+                carbo += Calculate_per_grams_function(value.carbohydrates, value.grams);
+                fat += Calculate_per_grams_function(value.fat, value.grams);
+                protein += Calculate_per_grams_function(value.protein, value.grams);
+            });
+            $scope.calories_all = Math.round(cal * 100) / 100;
+            $scope.carbos_all = Math.round(carbo * 100) / 100;
+            $scope.fats_all = Math.round(fat * 100) / 100;
+            $scope.proteins_all = Math.round(protein * 100) / 100;
+        };
+        $scope.Add_Prod = function (prod) {
+            $scope.list.push({
+                value_id: prod.id,
+                name: prod.name,
+                calorie: prod.calorie,
+                protein: prod.protein,
+                fat: prod.fat,
+                carbohydrates: prod.carbohydrates,
+                grams:100
+            })
+        };
+        $scope.Remove_Prod = function (prodkey) {
+            $scope.list.splice(prodkey, 1);
+        };
+        $scope.Save_Data_post_method = function () {
+            //$http.post("https://localhost:44393/api/Meal__Nutritional_Value", JSON.stringify({
+            //    modeloVenta: $scope.list
+            //})).then(function () {
+            //    toastr.info('Elemento insertado correctamente');
+            //    });
+            DataService.send_post_data('/api/Meal__Nutritional_Value', $scope.list)   
+            
         };
         
-        //app.filter('filtername', function () {
-        //    return function (x) {
-        //        var i, c, txt = "";
-        //        for (i = 0; i < x.length; i++) {
-        //            c = x[i];
-        //            if (i % 2 == 0) {
-        //                c = c.toUpperCase();
-        //            }
-        //            txt += c;
-        //        }
-        //        return txt;
-        //    };
-        //});
-});
+}]);
 </script>
 
