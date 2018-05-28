@@ -16,7 +16,7 @@ namespace Gym_application.Repository.Models.IRepo
         Task<Meal> GetMealAsync(int id);
         Task<MealViewModel> MealData(int id);
         Task<int> SaveChangesAsync();
-
+        Task<bool> CheckAccessToDiet(string userId, int mealid);
 
         //values
         Task<List<Nutritional_Value>> GetValuesAsync();

@@ -57,11 +57,16 @@ namespace Gym_application.Repository.Models.Repo
         }
         // values
         public async Task<bool> Check__Modify_Save(MealViewModel date, string userId)
-        {
+        {            
+            // dodać sprawdzanie userId
+
+
+            
+            //divide model beetween two list
             List<ValuesViewModel> withid_should_be_exist, withoutid_should_create;
             withid_should_be_exist = date.Values.Where(t => t.Nutritional_Values_Meal_Id != 0).ToList();
             withoutid_should_create = date.Values.Where(t => t.Nutritional_Values_Meal_Id == 0).ToList();
-            //var x = await MealData(date.Meal.Id);
+            //var 
             var db_querry = await _db.Meal__Nutritional_Values.Where(t => t.MealId == date.Meal.Id).ToListAsync();
             List<Meal__Nutritional_Value> for_delete = new List<Meal__Nutritional_Value>();
             List<Meal__Nutritional_Value> for_modify = new List<Meal__Nutritional_Value>();
@@ -75,22 +80,24 @@ namespace Gym_application.Repository.Models.Repo
                 }
                 else if(meal_values.Grams != exist_in_db.Quantity_grams)
                 {
+                    exist_in_db.Quantity_grams = (short)meal_values.Grams;
                     for_modify.Add(exist_in_db);
                 }
             }
-            //musze to kurde naprawic
 
-            foreach (var c in for_delete)
+            foreach (var delete_item in for_delete)
             {
-                _db.Meal__Nutritional_Values.Remove(new Meal__Nutritional_Value() { Id = c.Nutritional_Values_Meal_Id, MealId = date.Meal.Id, Nutritional_ValuesId = c.Value_Id, Quantity_grams = (short)c.Grams });
+                _db.Meal__Nutritional_Values.Remove(delete_item);
             }
-            foreach(var s in withoutid_should_create)
+            foreach(var create_item in withoutid_should_create)
             {
-                await _db.Meal__Nutritional_Values.AddAsync(new Meal__Nutritional_Value() { Id = s.Nutritional_Values_Meal_Id, MealId = date.Meal.Id, Nutritional_ValuesId = s.Value_Id, Quantity_grams = (short)s.Grams });
+                await _db.Meal__Nutritional_Values.AddAsync(new Meal__Nutritional_Value() { Id = create_item.Nutritional_Values_Meal_Id, MealId = date.Meal.Id, Nutritional_ValuesId = create_item.Value_Id, Quantity_grams = (short)create_item.Grams });
             }
-
-            await SaveChangesAsync();
-            return false;
+            foreach( var modify_item in for_modify)
+            {
+                _db.Update(modify_item);
+            }
+            return true;
         }
 
         public Task<List<Nutritional_Value>> GetValuesAsync()
@@ -108,6 +115,12 @@ namespace Gym_application.Repository.Models.Repo
         public Task<int> SaveChangesAsync()
         {
             return _db.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckAccessToDiet(string userId,int mealid)
+        {
+            var c = await _db.Diet_Meals.Where(t => t.MealId == mealid).Include(a => a.Diet).Where(t => t.Diet.OwnerId == userId || t.Diet.UserId == userId).FirstOrDefaultAsync();
+            return (c!=null);             
         }
     }
 }

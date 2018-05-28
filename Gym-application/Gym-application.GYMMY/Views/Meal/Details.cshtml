@@ -7,7 +7,7 @@
    <div class="row">
        <div class="col">
            <h2 class="">Edit @Model.Meal.Id</h2>
-
+           <div id="messages"></div>
        </div>
    </div>
     <div class="row"  ng-cloak ng-app="myApp" ng-controller="NutritionalValuesCtrl" data-ng-init="init()">
@@ -156,10 +156,25 @@
                 }),
                 //data: JSON.stringify(datalist),
                 dataType: "json"
-            }).then(function (a) {
-                var cc = a;
-                toastr.info('Elemento insertado correctamente');
+            }).then(function (response) {
+                this.show_messages(response);
                 });
+        }
+        show_messages = function (datalist) {
+            var esc = new Date().getTime() +3000;
+            document.getElementById('messages').innerHTML = '<div id="div1" class="alert alert-success" role="alert">' + datalist.data[0].value + '</div>';
+            var x = setInterval(function () {                
+                var now = new Date().getTime();
+                var distance = esc - now;
+                if (distance < 0) {
+                    clearInterval(x);
+                    var element = document.getElementById("div1");
+                    element.parentNode.removeChild(element);
+                }
+                
+
+            }, 1000);
+        
         }
     });
     app.filter('filtername', function () {

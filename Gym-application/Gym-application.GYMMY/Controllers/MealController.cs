@@ -9,6 +9,7 @@ using Gym_application.Repository.Data;
 using Gym_application.Repository.Models.DataBase;
 using Gym_application.Repository.Models.IRepo;
 using Microsoft.AspNetCore.Authorization;
+using Gym_application.GYMMY.Common;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -46,18 +47,23 @@ namespace Gym_application.GYMMY.Controllers
 
         // GET: Meal/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int? Did,int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
+            }
+            var UserId = User.getUserId();
+
+            if(!await _context.CheckAccessToDiet(UserId, (int)id))
+            {
+                return BadRequest();
             }
             var data = await _context.MealData((int)id);
             if (data == null)
             {
                 return NotFound();
             }
-            ViewBag.DietId = Did;
             return View(data);
         }
 

@@ -11,6 +11,7 @@ using Gym_application.Repository.Models.IRepo;
 using System.Net.Http;
 using Gym_application.Repository.Models.ViewModels.MealViewModels;
 using Gym_application.GYMMY.Common;
+using Newtonsoft.Json;
 
 namespace Gym_application.GYMMY.ApiControllers
 {
@@ -92,20 +93,38 @@ namespace Gym_application.GYMMY.ApiControllers
         //}
         [HttpPost]
         //public async Task<HttpResponseMessage> PostMeal__Nutritional_Value([FromBody]ValuesViewModel[] date, [FromBody] int id)
-        public async Task<HttpResponseMessage> PostMeal__Nutritional_Value([FromBody]MealViewModel date)
+        public async Task<JsonResult> PostMeal__Nutritional_Value([FromBody]MealViewModel data)
         {
+            List<KeyValuePair<string, string>> result_message = new List<KeyValuePair<string, string>>();
             if (!ModelState.IsValid)
             {
-                return null;
+                result_message.Add(new KeyValuePair<string, string>("message", "Wrong model"));
+                return Json(result_message);
             }
             var UserId = User.getUserId();
 
-            bool result =  await _context.Check__Modify_Save(date,UserId);
+            if (await _context.CheckAccessToDiet(UserId, data.Meal.Id)==false)
+            {
+                result_message.Add(new KeyValuePair<string, string>("message", "Can't access to data"));
+                return Json(result_message);
+            }
+            try
+            {
+                bool result = await _context.Check__Modify_Save(data, UserId);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                result_message.Add(new KeyValuePair<string, string>("message", e.Message));
+                return Json(result_message);
+
+            }
 
             //_context.Meal__Nutritional_Values.Add(meal__Nutritional_Value);
             //await _context.SaveChangesAsync();
+            result_message.Add(new KeyValuePair<string, string>("message", "Saved"));
+            return Json(result_message);
 
-            return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
         // POST: api/Meal__Nutritional_Value
         //[HttpPost]
