@@ -7,13 +7,13 @@
    <div class="row">
        <div class="col">
            <h2 class="">Edit @Model.Meal.Id</h2>
-           <div id="messages"></div>
+           <div id="mealmessages"></div>
        </div>
    </div>
-    <div class="row"  ng-cloak ng-app="myApp" ng-controller="NutritionalValuesCtrl" data-ng-init="init()">
+
+    <div class="row"  ng-cloak ng-app="myApp" ng-controller="NutritionalValuesCtrl" data-ng-init="init(@Model.Meal.Id)">
         <div class="col-md-6">    
             <h3>Values in Meal </h3>
-
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -44,43 +44,10 @@
                 <div class="col">{{carbos_all}}</div>
                 <div class="col">{{fats_all}}</div>
                 <div class="col">{{proteins_all}}</div>
-
             </div>
-                @*<table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">C</th>
-                            <th scope="col">B</th>
-                            <th scope="col">W</th>
-                            <th scope="col">T</th>
-                            <th scope="col">G</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var value in Model.Values)
-            {
-                            <tr>
-                                <th scope="row">@value.Name</th>
-                                <td>@value.Calorie</td>
-                                <td>@value.Protein</td>
-                                <td>@value.Carbohydrates</td>
-                                <td>@value.Fat</td>
-                                <td>@value.Grams g</td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table>*@
-
         </div>
+
         <div class="col-md-6">
-                @*<ul>
-                <li ng-repeat="x in myData">
-                    {{ x.name + ', ' + x.calorie }}
-                </li>
-            </ul>*@
                 <h3>Products</h3>
                     <input class="form-control " ng-model="search" type="search" placeholder="Search" aria-label="Search">
                 <div  style="overflow: auto; max-height:350px;">
@@ -96,7 +63,6 @@
                                 <th scope="col">D</th>
                                 <th scope="col">H</th>
                                 <th scope="col">A</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -109,7 +75,6 @@
                                 <td>{{x.dish}}</td>
                                 <td></td>
                                 <td class="btn btn-sm btn-success" ng-click="Add_Prod(x)"> Add</td>
-
                             </tr>
                         </tbody>
                     </table>
@@ -120,20 +85,18 @@
             @await Component.InvokeAsync("Nutritional_Values")
             
 
-        </div>*@
-        
+        </div>*@        
         <div class="col-12 my-3">
             <button class="btn btn-dark" ng-click="Save_Data_post_method()">
                 Save
             </button>
         </div>
     </div>
-
 </div>
 
 
 
-<script>
+@*<script>
     var app = angular.module('myApp', []);
     app.service('DataService', function ($http) {
         //**********----Get All Record----***************
@@ -161,14 +124,18 @@
                 });
         }
         show_messages = function (datalist) {
-            var esc = new Date().getTime() +3000;
-            document.getElementById('messages').innerHTML = '<div id="div1" class="alert alert-success" role="alert">' + datalist.data[0].value + '</div>';
+            var esc = new Date().getTime() +5000;
+            document.getElementById('messages').innerHTML = '<div id="div'+esc+'" class="alert alert-success" role="alert">' + datalist.data[0].value + '</div>';
             var x = setInterval(function () {                
                 var now = new Date().getTime();
                 var distance = esc - now;
+                if (distance < 2001) {
+                    var element = document.getElementById('div' + esc);
+                    element.classList.add("hidden")
+                }
                 if (distance < 0) {
-                    clearInterval(x);
-                    var element = document.getElementById("div1");
+                    clearInterval(x);                    
+                    var element = document.getElementById('div'+esc);
                     element.parentNode.removeChild(element);
                 }
                 
@@ -258,6 +225,6 @@
             
         };
         
-}]);
-</script>
-
+    }]);
+</script>*@
+<script src="~/js/Meal_controller.js"></script>

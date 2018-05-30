@@ -66,6 +66,9 @@
             <dd>
                 @Html.DisplayFor(item => meal.Calories)
             </dd>
+            <dd>
+                <a asp-action="Details" asp-controller="Meal" asp-route-id="@meal.Id">Edit</a>
+            </dd>
         </dl>
     }
 </div>

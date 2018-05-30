@@ -41,3 +41,13 @@
     top: 185px;
     left: 30px; }
 
+#mealmessages div {
+  transition: all 2s linear;
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  width: 98%; }
+  #mealmessages div.hidden {
+    opacity: 0; }
+
