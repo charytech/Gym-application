@@ -12,74 +12,75 @@
    </div>
 
     <div class="row"  ng-cloak ng-app="myApp" ng-controller="NutritionalValuesCtrl" data-ng-init="init(@Model.Meal.Id)">
-        <div class="col-md-6">    
+        <div class="col-md-6" style="position:relative;">    
             <h3>Values in Meal </h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">C</th>
-                        <th scope="col">B</th>
-                        <th scope="col">W</th>
-                        <th scope="col">T</th>
-                        <th scope="col">G</th>
-                        <th scope="col">R</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="(key,value) in list">
-                        <th scope="row">{{value.name}}</th>
-                        <td>{{Calculate_per_grams(value.calorie,value.grams) }}</td>
-                        <td>{{Calculate_per_grams(value.protein,value.grams) }}</td>
-                        <td>{{Calculate_per_grams(value.carbohydrates,value.grams) }}</td>
-                        <td>{{Calculate_per_grams(value.fat,value.grams) }}</td>
+            <div class="table-overflow">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">C</th>
+                            <th scope="col">B</th>
+                            <th scope="col">W</th>
+                            <th scope="col">T</th>
+                            <th scope="col">G</th>
+                            <th scope="col">R</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key,value) in list">
+                            <th scope="row">{{value.name}}</th>
+                            <td>{{Calculate_per_grams(value.calorie,value.grams) }}</td>
+                            <td>{{Calculate_per_grams(value.protein,value.grams) }}</td>
+                            <td>{{Calculate_per_grams(value.carbohydrates,value.grams) }}</td>
+                            <td>{{Calculate_per_grams(value.fat,value.grams) }}</td>
 
-                        <td><input class="form-control" type="text" ng-change="calcall()" ng-model="value.grams"></td>
-                        <td class="btn btn-danger" ng-click="Remove_Prod(key)"> X</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="row" style="position:absolute; bottom:0px; width:100%;">
-                <div class="col">{{calories_all}}</div>
-                <div class="col">{{carbos_all}}</div>
-                <div class="col">{{fats_all}}</div>
-                <div class="col">{{proteins_all}}</div>
+                            <td class="p-1"><input class="form-control" type="text" ng-change="calcall()" ng-model="value.grams"></td>
+                            <td class="btn btn-danger" ng-click="Remove_Prod(key)"> X</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row pt-2" style="position:absolute; bottom:0px; width:100%;">
+                <div class="col-12">Summary:</div>
+                <div class="col">Cal:{{calories_all}}</div>
+                <div class="col">Carbo:{{carbos_all}}</div>
+                <div class="col">Fat:{{fats_all}}</div>
+                <div class="col">Pro:{{proteins_all}}</div>
             </div>
         </div>
 
         <div class="col-md-6">
-                <h3>Products</h3>
-                    <input class="form-control " ng-model="search" type="search" placeholder="Search" aria-label="Search">
-                <div  style="overflow: auto; max-height:350px;">
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">C</th>
-                                <th scope="col">B</th>
-                                <th scope="col">W</th>
-                                <th scope="col">T</th>
-                                <th scope="col">D</th>
-                                <th scope="col">H</th>
-                                <th scope="col">A</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="x in myData | filtername:search">
-                                <th scope="row">{{x.name}}</th>
-                                <td>{{x.calorie}}</td>
-                                <td>{{x.protein}}</td>
-                                <td>{{x.carbohydrates}}</td>
-                                <td>{{x.fat}}</td>
-                                <td>{{x.dish}}</td>
-                                <td></td>
-                                <td class="btn btn-sm btn-success" ng-click="Add_Prod(x)"> Add</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+            <h3>Products</h3>
+                <input class="form-control " ng-model="search" type="search" placeholder="Search" aria-label="Search">
+            <div class="table-overflow">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">C</th>
+                            <th scope="col">B</th>
+                            <th scope="col">W</th>
+                            <th scope="col">T</th>
+                            <th scope="col">D</th>
+                            <th scope="col">H</th>
+                            <th scope="col">A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in myData | filtername:search">
+                            <th scope="row">{{x.name}}</th>
+                            <td>{{x.calorie}}</td>
+                            <td>{{x.protein}}</td>
+                            <td>{{x.carbohydrates}}</td>
+                            <td>{{x.fat}}</td>
+                            <td>{{x.dish}}</td>
+                            <td></td>
+                            <td class="btn btn-sm btn-success" ng-click="Add_Prod(x)"> Add</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         @*<div class="col-md-6">
             @await Component.InvokeAsync("Nutritional_Values")
