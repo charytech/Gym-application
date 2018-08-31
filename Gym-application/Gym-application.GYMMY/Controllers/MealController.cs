@@ -10,6 +10,7 @@ using Gym_application.Repository.Models.DataBase;
 using Gym_application.Repository.Models.IRepo;
 using Microsoft.AspNetCore.Authorization;
 using Gym_application.GYMMY.Common;
+using Gym_application.Repository.Models.ViewModels.DietViewModels;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -47,8 +48,9 @@ namespace Gym_application.GYMMY.Controllers
 
         // GET: Meal/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id,int dietid)
         {
+            ViewBag.DietId = dietid;
             if (id == null)
             {
                 return NotFound();
@@ -68,26 +70,36 @@ namespace Gym_application.GYMMY.Controllers
         }
 
         // GET: Meal/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
+            ViewData["dietId"] = id;
+            TempData["TestVal"] = id;
             return View();
         }
 
-        // POST: Meal/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //POST: Meal/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,Calories,Protein,Fat,Carbohydrates")] Meal meal)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(meal);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(meal);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(int dietid, ViewDietMealModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var tesVal = TempData["TestVal"];
+                var meal = new Meal() { Name = model.Name };
+                try {                
+                await _context.AddMealAsync(meal,dietid,model);
+                await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", new { id = meal.Id, dietid = dietid });
+                }
+                catch(Exception e)
+                {
+
+                }
+            }
+            return View(model);
+        }
 
         //// GET: Meal/Edit/5
         //public async Task<IActionResult> Edit(int? id)

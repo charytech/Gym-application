@@ -5,12 +5,11 @@
     var za = Model.SelectMany(x => x.ListMeals).Distinct();
 }
 
-<h2>Details @ViewBag.DietId</h2>
+<h2>Diet details @ViewBag.DietId</h2>
 
 <div>
-    <h4>Diet</h4>
-    <hr />
-    
+
+
 
 
     <div class="row">
@@ -37,7 +36,7 @@
                             <tbody>
                                 @foreach (var c in a.ListMeals)
                                 {
-                                    <tr >
+                                    <tr>
                                         <th>@Html.DisplayFor(item => c.Name)</th>
                                         <th>@Html.DisplayFor(item => c.Calories)</th>
                                         <th>@Html.DisplayFor(item => c.Protein)</th>
@@ -51,26 +50,35 @@
                     </div>
                 </div>
             }
-        } 
+        }
     </div>
-  
 
+
+
+    <hr />
+    <a asp-controller="Meal" asp-action="Create" asp-route-Id="@ViewBag.DietId">Add new Meal</a>
     <h1>List of meals:</h1>
 
-    @foreach (var meal in za)
-    {
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayFor(item => meal.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(item => meal.Calories)
-            </dd>
-            <dd>
-                <a asp-action="Details" asp-controller="Meal" asp-route-id="@meal.Id">Edit</a>
-            </dd>
-        </dl>
-    }
+
+    <div class="row">
+        @foreach (var meal in za)
+        {
+            <div class="diet_meal_box col-2">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayFor(item => meal.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(item => meal.Calories)
+                    </dd>
+                    <dd>
+                        <a asp-action="Details" asp-controller="Meal" asp-route-id="@meal.Id" asp-route-dietid="@ViewBag.DietId">Edit</a>
+                    </dd>
+                </dl>
+            </div>
+        }
+    </div>
+
 </div>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@

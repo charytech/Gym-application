@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gym_application.Repository.Models.DataBase;
 using System;
 using Gym_application.Repository.Models.ViewModels;
+using Gym_application.GYMMY.Common;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -49,14 +50,14 @@ namespace Gym_application.GYMMY.Controllers
                     if (save_new_BMR == true)
                     {
                         myModel.UserDetail.Calories_after_BMR_multiply_activity = new_BMR;
-                    }
-                    string userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    myModel.Sizes.Kind_Of_Sizes = Kind_of_Sizes.Actual;
-                    myModel.Sizes.Create_Date = DateTime.Now;
-                    myModel.Sizes.UserId=userid ;
-                    myModel.UserDetail.Id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    }                  
+                    string userId = User.getUserId();
+                    myModel.Sizes.UserId = userId;
+                    myModel.UserDetail.Id = userId;
+
                     _context_Sizes.SaveActualSizes(myModel.Sizes);
                     await _context_Sizes.SaveChangesAsync();
+
                     _context_UserDetail.UpdateUserDetail(myModel.UserDetail);
                     await _context_UserDetail.SaveChangesAsync();
 

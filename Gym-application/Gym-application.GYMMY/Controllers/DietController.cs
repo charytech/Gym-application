@@ -11,6 +11,7 @@ using Gym_application.Repository.Models.IRepo;
 using Gym_application.Repository.Models.ViewModels.DietViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Gym_application.GYMMY.Common;
 
 namespace Gym_application.GYMMY.Controllers
 {
@@ -34,7 +35,7 @@ namespace Gym_application.GYMMY.Controllers
         //GET: Diet/Details/5
         public IActionResult Details(int? id)
         {
-            if (id == null || !_context.Check_Access_to_Diet((int)id, this.User.FindFirstValue(ClaimTypes.NameIdentifier)) )
+            if (id == null || !_context.Check_Access_to_Diet((int)id, User.getUserId()) )
             {
                 return NotFound();
             }

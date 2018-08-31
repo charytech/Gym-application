@@ -10,9 +10,6 @@
     background-color: lightgrey;
     opacity: 0.6; }
 
-.diet_day {
-  border: 3px solid red; }
-
 .sizes {
   position: relative;
   width: 340px; }
@@ -41,6 +38,12 @@
     top: 185px;
     left: 30px; }
 
+.diet_day {
+  border: 3px solid red; }
+
+.diet_meal_box {
+  border: 1px solid yellow; }
+
 #mealmessages div {
   transition: all 2s linear;
   display: block;
@@ -54,4 +57,3 @@
 .table-overflow {
   overflow: auto;
   max-height: 350px; }
-

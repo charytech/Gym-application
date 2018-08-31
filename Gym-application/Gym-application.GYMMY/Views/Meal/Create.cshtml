@@ -1,5 +1,4 @@
-﻿@model Gym_application.Repository.Models.DataBase.Meal
-
+﻿@model Gym_application.Repository.Models.ViewModels.DietViewModels.ViewDietMealModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -12,31 +11,24 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input name="dietid" type="hidden" value="@ViewData["dietid"]" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Calories" class="control-label"></label>
-                <input asp-for="Calories" class="form-control" />
-                <span asp-validation-for="Calories" class="text-danger"></span>
+                <label asp-for="Number_of_Meal_At_The_Week" class="control-label"></label>
+                <input asp-for="Number_of_Meal_At_The_Week" class="form-control" />
+                <span asp-validation-for="Number_of_Meal_At_The_Week" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Protein" class="control-label"></label>
-                <input asp-for="Protein" class="form-control" />
-                <span asp-validation-for="Protein" class="text-danger"></span>
+                <label asp-for="Which_meal_at_day" class="control-label"></label>
+                <input asp-for="Which_meal_at_day" class="form-control" />
+                <span asp-validation-for="Which_meal_at_day" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Fat" class="control-label"></label>
-                <input asp-for="Fat" class="form-control" />
-                <span asp-validation-for="Fat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Carbohydrates" class="control-label"></label>
-                <input asp-for="Carbohydrates" class="form-control" />
-                <span asp-validation-for="Carbohydrates" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

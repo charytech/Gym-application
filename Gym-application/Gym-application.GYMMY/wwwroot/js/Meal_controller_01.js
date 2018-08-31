@@ -2,7 +2,6 @@
 var app = angular.module('myApp', []);
 app.service('DataService', function ($http) {
     //**********----Get All Record----***************
-    var urlGet = '/meal/values';
     var url_api = '/api/Meal__Nutritional_Value';//all exist Nutritional_values in database
     this.get_all_values = function () {
         return $http.get(url_api);
@@ -11,7 +10,7 @@ app.service('DataService', function ($http) {
     this.get_all_values2 = function (model_id) {
         return $http.get(urlGet2 + model_id);
     };
-    this.send_post_data = function (urll, datalist,modelId) {
+    this.send_post_data = function (urll, datalist, modelId) {
         $http({
             method: "post",
             url: urll,
@@ -19,38 +18,35 @@ app.service('DataService', function ($http) {
                 values: datalist,
                 meal: {
                     id: modelId
-    }
-}),
-    //data: JSON.stringify(datalist),
-    dataType: "json"
-            }).then(function (response) {
-    this.show_messages(response);
+                }
+            }),
+            dataType: "json"
+        }).then(function (response) {
+            this.show_messages(response);
+        });
+    };
+    show_messages = function (datalist) {
+        var esc = new Date().getTime() + 15000;
+        document.getElementById('mealmessages').innerHTML = '<div id="div' + esc + '" class="alert alert-success" role="alert">' + datalist.data[0].value + '</div>';
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = esc - now;
+            if (distance < 12001) {
+                var element = document.getElementById('div' + esc);
+                element.classList.add("hidden");
+            }
+            if (distance < 0) {
+                clearInterval(x);
+                var element2 = document.getElementById('div' + esc);
+                element2.parentNode.removeChild(element2);
+            }
+        }, 1000);
+
+    };
 });
-        }
-show_messages = function (datalist) {
-    var esc = new Date().getTime() + 15000;
-    document.getElementById('mealmessages').innerHTML = '<div id="div' + esc + '" class="alert alert-success" role="alert">' + datalist.data[0].value + '</div>';
-    var x = setInterval(function () {
-        var now = new Date().getTime();
-        var distance = esc - now;
-        if (distance < 12001) {
-            var element = document.getElementById('div' + esc);
-            element.classList.add("hidden")
-        }
-        if (distance < 0) {
-            clearInterval(x);
-            var element2 = document.getElementById('div' + esc);
-            element2.parentNode.removeChild(element2);
-        }
-
-
-    }, 1000);
-
-}
-    });
 app.filter('filtername', function () {
     return function (x, search) {
-        if (search == undefined) {
+        if (search === undefined) {
             search = '';
         }
         var log = [];
@@ -64,9 +60,9 @@ app.filter('filtername', function () {
 });
 app.controller('NutritionalValuesCtrl', ['$scope', '$http', 'DataService', function ($scope, $http, DataService) {
     $scope.list = [];
-    var Model_Meal_Id;
+    
     $scope.init = function (Model_Id) {
-        Model_Meal_Id = Model_Id;
+        $scope.Model_Meal_Id = Model_Id;
         var _values = DataService.get_all_values();
         _values.then(function (response) {
             $scope.myData = response.data;

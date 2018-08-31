@@ -20,15 +20,17 @@ namespace Gym_application.GYMMY.ApiControllers
     public class Meal__Nutritional_ValueController : Controller
     {
         private readonly IMealRepo _context;
+        private readonly INutritional_ValuesRepo _context_Nutritional_Values;
 
-        public Meal__Nutritional_ValueController(ApplicationDbContext context2, IMealRepo context)
+        public Meal__Nutritional_ValueController( IMealRepo context,INutritional_ValuesRepo context2)
         {
             _context = context;
+            _context_Nutritional_Values = context2;
         }
         [HttpGet]
         public async Task<List<Nutritional_Value>> GetMeal__Nutritional_Values()
         {
-            return await _context.GetValuesAsync();
+            return await _context_Nutritional_Values.GetValuesAsync();
 
         }
         // GET: api/Meal__Nutritional_Value
@@ -111,6 +113,7 @@ namespace Gym_application.GYMMY.ApiControllers
             try
             {
                 bool result = await _context.Check__Modify_Save(data, UserId);
+                await _context.Upadate_Meal(data.Meal.Id, _context.Calculate_makro(data));
                 await _context.SaveChangesAsync();
             }
             catch(Exception e)
